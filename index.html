@@ -9,6 +9,20 @@
   <meta name="apple-mobile-web-app-title" content="Кэшбэк-навигатор">
   <title>Кэшбэк-навигатор v2.0 — Ноябрь 2026</title>
   <link rel="manifest" href="./manifest.json" id="manifest-link">
+  <script>
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var iconNum = params.get('icon');
+        if (iconNum && /^[1-8]$/.test(iconNum)) {
+          var mLink = document.getElementById('manifest-link');
+          if (mLink) mLink.href = './manifest-icon-' + iconNum + '.json';
+          var fav = document.querySelector('link[rel="icon"]');
+          if (fav) fav.href = './icon_' + iconNum + '_192.png';
+        }
+      } catch(e) {}
+    })();
+  </script>
   <link rel="apple-touch-icon" href="./icon-192.png" id="apple-icon-link">
   <link rel="icon" type="image/jpeg" href="data:image/jpeg;base64,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" id="favicon-link">
   <link rel="apple-touch-icon" href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAQDAwMDAgQDAwMEBAQFBgoGBgUFBgwICQcKDgwPDg4MDQ0PERYTDxAVEQ0NExoTFRcYGRkZDxIbHRsYHRYYGRj/2wBDAQQEBAYFBgsGBgsYEA0QGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBj/wAARCADAAMADASIAAhEBAxEB/8QAHQAAAQQDAQEAAAAAAAAAAAAAAwABBAUCBgcICf/EAE0QAAECBAMCBwsJBgUDBQAAAAECAwAEBREGEiExQQcTFFFhcZEIFSI1UlOBobLB0TJCVWJykpOx0hYlM4KiwhcjNkNzJCaDRISUs9P/xAAbAQEBAAMBAQEAAAAAAAAAAAAAAQIDBQQGB//EADURAAICAQIEAgcIAQUAAAAAAAABAhEDITEEEkFRBZEGEyIycYGxFVNhkqHR4fAUQkOCwfH/2gAMAwEAAhEDEQA/APF8KFDE2joHnETGTLL0w+Gpdpbrh2JQLmJ1OpRm2+VTSyzKi+o0U5bblvsHOo6dcSHqwhpoylIYQ21vUBoennUekwJZg3h+bKbzD8vL84KitQ9Cbj1xn3opydHK0kHobSPzXFc4H5k3mXnHOhR0Ho2RiJVsDRCeyALPvVSvpsfhp/XC71Ur6bH4af1xW8mR5I7IXJkeSOyBSx71Ur6bH4af1wu9dK+mx+Gn9cV3J0eSOyG5MjyR2QIWfeqlfTY/DT+uF3rpX02Pw0/rit5MjyU9kLkyPJT2QBZd6qV9Nj8NP64XeqlfTY/DT+uK3k6PJHZC5MjyR2Q+QLLvVSvpsfhp/XC71Ur6bH4af1xW8mR5I7IXJ0eQOyALHvVSvpsfhp/XD96qV9Nj8NP64reTI8kdkLk6PIT2QBY96aco2brKSeltJ/JcM5h+bSnNLzEu/wAwCihR9CrD1xXclbI1Qnsh2w/Lm8u+430JOnZsgDB5l6WdLMw0tpwfNWLGMLiLhmsJcaEpV2EOM7lWNh086T0iI9RpfJm+VSiy9Km1yflN32ZrbRzKGnVAECFDAiHgUxJtE2kyAn5wqeuJZqxctpmO5IPT6gDFctVheL2cvTcPMSCPBfe8Jwjbci6uwWT2xECPUp9U++WGiBKo8EBIsFW2W+qNwgKGwBsjBpACQANINrFIP6IeMbmFrAGXohoVzC154AWsKGvD6wA8L0RjcxOcnmHaBLyBp0uiZYdWvlyCQ44hQFm1i9iEkEg2v4RBuLWjbVaFRCv0QteaFDoyccjjSsN5hnyWzWvra++0UDeiFfoh1lHGq4sqKMxy57XtfS9t9oYXJAGpO6AFfohbtkEQhLc22mbS4lsKBcA0UU31t02jBxQU4pSU5EkkhN9g5olgaFYRdTuHnKZg+QrFRmm2ZioqK5SR2uqYGnHLHzUk3Cb6qsSNNTSXMYwnGauJZRcdGYLbBGyC02fVT3+JdIVLL8EhWoTfbceSd49MY6wF1AKSCLiMzELVZASM0lbQPJ3blu+uU70nq/IiIQN4uZO9Sw8/IrOZ5nVsnbcC6e0XTFGhV9YjKFkmhM1aWYV8lbqQeq9z6hE+rvKmK4onYhIHpPhH8xEai64ilv5j/QqCTWtZmT9e39IirYMdIsmHhDZDxSCtCht8ODEArQoUK8ANDxLp85LybyjN0yWqDSklJafUtBBI0UlSCCCNu8c4MRFFJWSgFKdwJvb0xE3dUV1V2NDxmhLRacK1uJcABbASCFG+oJvpps2xk84y42wlqTDCkN5XVBxS+OVcnPY/J0IFhpp0w5tQISr61y6Ggl5cwLobZUFq2kWKRqDpsOtrHfGUm1LOVFpmfmFSrClZXHgjOW+nLvANr9F4EkraWHG1FKxqFJNiPTEjkaO9rk27NttzCFpHJHEqDjiVC4Wk2sR6d4OsYyfRsq1IqkqQBnsCQDobwWWmOTzrUwGkK4sg5DqFW5+uD0uffplaYqsohnNLuBSUzLQeb1votJFlAi9xbWAzDDqHzcIVnJUktG6Vbzl5wNQeYi0G7dPYLuifiOs1DE2KJmu1BDaJiecLpyIDTdybeCNAEi1uYWitYW228lxxsOBOuRWxR6eiJS5QMTsrK1CcKAcoWFAniEE32ekmw98ScSsYek8QTEthicmZ+npUA1NzLXErc018AEgAnZrewHTGuDjGsUVpWnal+JlK3cnuV03OTM/Orm5t5Try/lKV0CwA5gBoBugfFOBkPFCuLJsFW0vDspbcfQhbqWkFQSpwgkIBOpIGpttsNYNMurQFyDU6qZk2nVFpWUoSvW2cJOouANDrzxt2qMTG71ZGhlC6YeEdkZEMqQ8ZeuJt89JHpHhD8jEKeaEvV5lhPyUOqA6r3HqiTKC1alj9cj+kwOtW/aGZ6cp/oER7BDUU/wDcMv8Az+wqCzOtXmf+T3CAUW/7Qy/83sKg0144mreX7hBbB7mY2Qox1tDKVbfFITpOQdnEqcDjTLKDlU66SBfmAAJJ6BEvvMzvrUmP/G7+mMm/Bw7T1D5xeJ689vcIEVWG2MtEY6sIKLL/AE7JfhPfoh+8kt9PyI/8T36IDn6YQXcjwrdJiWhT7kxnD0ktYz4jkUi+v+S9+iLdeEKE9PumQxTLCVzHiuUsvcZl3ZsqLX6oqH2pZuZDcrO8rRYHjA0psXtqLK10Ol4tKZJOPOpShJJJtaMUubVGvLmWJe0WkrgCjuEcZjCmAdLEx/8AnF/IcGGFXM3Kcb0c5kFIu1MjKo7FaN625thjccNcBWNsQUJqqylN4uVeF2nZl5DCXBzpzqGYdI0ihxXweYiwfPiTrUi/KuKTmTm1StPOlQuFDpBMapYXP2Yz1OdDxvDzU1+30JlO4FcBPKBm+FGjtA80tMH80RuMr3P/AATVFpBm+GunkMthCQtlfgIvolOa2lydOmOaYcwXX8VVtFJo0q9NTTgJS2g20AuSSbAAAbSYWO+D7FmAuSqr8ouUMwCtkLcQvOAbE2STpc2jnZ+AzOais9Ptp/6dPB41w7fL6v5/1UdPne554GWHS/L8NFLCrmw5KdnUm4jZMPdzdwbGmMYikcdUqdVL5kMKfYVxLrqbWUUkXUEnW1iCQL77+VacmeqtcZkUzCwVkXO4JG0m2ywjtyqjWqq1ySn3LcnKFQabyoCGm0+EbaDZqd5J3x5cnhnE3Us/s9f7Z1cfG4mrUNfl+xBrfc7Utuaem/8AErDyy4VZlKbmCSTt/wBsxq0zwGyCUBAx/hq6STmDU3dV9x/yrWHvi776TD8pMtIl+M8EOFZzFTKUnUg32G+twd1oqph8pk0PpmklalqQWQTmSAAQo7rG5HoMdTDhnDRyPNkyxlqkU1R4IpVpLLMvwg0R9KG9c8tNIyKJJUkWaOYX39OyNOxLgepYYZYmn5qTnpCYUUNTsk4VtlYFyhQUApC7a5VAXGouI6HNKlG2xxM8qZcuCbNFCQCkE6k3uDcbLaXBimxK6pzgyriL3Sl2TcAO5XGlN+xSh6THrxq0eacqZy82B0N4W6JdJpjtWnEyzU7TpVRuc89NIl0aC/ylaREeSWnFNlbayPnNqCgeowUlfLepk06swlT++Jb7fuMCrRP7QzH8nsCCSutZlvt+4wKtf6hmP5fYEV7Bbiop/wC4Zf8Am9kwWa8cTP2/cIDRv9Qy/wDN7Jg0344mv+T3CC2D3MhsgThtBRsgLuwxSGwhJGD6O55XKPU7EFS4u5hjJwaYcet8vlfqfigJuqMpqn5fQ1wdp/F/Uyzw+aMYWUncYxMyZLEZwTHXuB6kSVb4TKFSp4BTE1OssuDnSpYBHZcRyGSfUxMtupCMyDcZ0hQ9IOh9MbrhWtzdFqUrUqc7xc1KuofZXtyrSQoHtAhq01Hc5fiULh+B7H4R8aVjDGHpSs0SlyE7NTlQclyicZ41tiXaQkhtCbgJvmSm+4J0ibwh06TqfBzWZRxoJTJqlp6USs3MuXcoWgE7iFi/PkBjW6Twq8HWJaKp+eqdFkXH3RNPUeuNuhMs/bwi042DmQbnS4NrAjS8bBJ4noGKJaem2Jk1Wny8y3Mz87xSmmp2YFyxKMpUASi91rNh4KQAOfS8jTXKn0pa940uypJx7O9LTZ+XY+DyYFB5IqMoc7lPTVOM7ba1lzScZbWuXVJpJwsDYap+C8EuzFScTKTU1LcsqUyoaycimygj7S9DbfdtO8x5m4SMU1LG+LJyuTiDLyxs1Jyg2SzCdEI67ak71FR3x6UxdT5muyL9Gq1X5BJ8pQ9W5sILjkxMkZm5NtA+VkBzq1ACiAfkgRrr3BBhZ+cYYYm6nLz6klUtKVaT4gTKhsCVAkX6DtNheLiyRbc5PvsnXS38Nq7RSbq2dfw/J6jL6zKqnKtG1cVb5Y1d23bfebaV8qOEUWit0qm8seaQ3OvoSlSUIsEoA0B+sTqec9UZOzKrKGUm3hFQubD4RseIpN2Qm3Zd5JSpBIIOkaeqoOSzjqUuOBt1BaeShWUuIJBKb66Gw7BG2ca2P0PhM0csVJDuzDaVJyvKUFJ8PJ4JF9qddv5REeLzSUKdbUlKxmQojRQ5wd8QlvdMZqbnnKOudQ245JtLCHFJuUtKVszeTfcd9oxbo9iVjqfF7XgNbuvgtxEvyVSX/wB8RVvN+BkUoqt4VxYA33c+lov3pmmjueMasTFN42cU5T1NTXGEFsco1Tl2GM4t7pWa5VpbrVfU4ygxmdkCb+SIKdkQ2DSnjmV+37jAq1/qCY/l9kQWU8cSv/J7jAqz/qCYP2fZER7FW41H8fy/Wr2TBpvxvM/8nuEBpHj+X61eyYkTCCatM2857hFirQe4wvbbAnNTaJQZJGyEJVa1pAG07Yz9XJmHOkdBq0gWuAjBc2U6OLqCeu0xGlSjHKapLSxz2deQ2cnyrKUAbdOsd+xHhB4dyBgKeLZCg/Ok6bluXH5RxmkyqZTFFPmJlS22Gptlx1aU3KUJcSVEDfYAmPfxfBzjytLp9NP+jncFxkMkZa7N/U7tR+COg1adk5cYblw4t0tpC5ZzKQEKPhG4ufB2kxvkzwZ8DeDZE/tbhmizU1lzhhhl0ZU7PCIWba9UX2KcZ4foAaXhOqisG6lsuNuy4R4SSAu6Qm+ijpffs5uXCmVLGlYMzWKnJpcUP4b000kJGY2OquuPD/jT7HpfFw7nBcas0aV4Qqm3hyXclqUXQuWYWsrLaFJCsoKtSASbX1taA0yaU24NTF1j2nyjfCRVGabNtTsqypDKX2CFNrKW0pVlI0ICgRcbbRUSsooLHgmN0OEydjXmzQnA6Ng2gu4oxDKSEtKce++4EJSNLk853DeTuAMegp2tUfB2FG5ujhpdPpCzK0tFtJ+fUAXJkjelGiuoNjeY4Vwd48lsDct4+gLqbk4wZYLTMKZUyhXy8pAOqhpfmuN8S8QYudxJUZZ5uQFPp0myGJOQSsrDQvdRKjqpSlEknqG4Rl/h582TkcXyrrp1363f+laKk5O9j4/jeHTlzXfWtej0W1Un7T1dtRVVZ2zD1XDspgZ+amApTr86px1w3vNqWSFKPlXLR16IBMyNbw5hKWlKrMzT049WWXJIPLKl5yk8Za+upyX6bRoFFqkxR6SuVq1KFVpkyoPOShWULZcAsFtrGqVW0O47CNImzWOZRJ4+h0SqKqaUlDM9VpwzJlQd7abABXMTe0a5cDnx5FULr4VvKS62veqWj0Wm9LyLBzweNypSq9792Me1OuW46rV61VuLwu1CWmsd1R2VKS3ylwXTsNlG/rvHIZlLjrD8ylbYQyUhQKwFHMSBZO07NbbNL7Y2aql1TeRZUpW8neY1Gall5zoeyNi4DJGCgulH13h+RRjr1v8AUgrfVrYE21Nol0jEFToc0+9TnsomGVS8w0sBSH2lbULSdCNh6CARYiGZpE1Myc3MsIJRLNpW9Y2IQpQTfpGZSR6REMyq72AMYS4GU04yVo6qzqNNMCpwF0lCcqb3tzRuAp6nu5txtP20Q7T03/8AcXiLQsNLrbwaQEtvC1irRK9Y7E5wdVGm9yxjenzMs4hS5qScGmpQhzMT67R0eH8Ly8rk1o9F82kcvi/E8MJRxuWtr9NTx21fZBVXToTrzRZzVNXS83GptMbMpH8Mc56TzboqiDrrHJyYnifLLc68ZqWqFKH98S2vz/cYHVzevP8A8vsiM5TxxLfb9xgdW8fP9afZEansbFuKk6V6X61eyY2ukOYURPTHf5mpOO8abmVWhItYW+UI1Ol+PJfrPsmDzSymrzI+v7hG3Bk9W+arNPEYfWx5ba+Gh1Jua4ICkXkcT3/52f0xb02Z4FRNN8fJ4mCcwvd5n4RxkPqA2whNKS4DfYdkdPH4motNwXkcXJ4JzqvXT/Mz6bVKa4ID3NWG11Bt9VD4kiVSCM+hN79N7+uOEzNV7mUPKHerEBN9qXERzfEmLphXcu4EpodUU8bOki+5LuUfmY4uqoOFZ8ImOlLjsfDLlTcrber7uzi8P4DPiOacsjjXs6aXy+zb7t0eqU1PuYhf9z4g1+u3C74dzDe4o1f9Km48qifc5/XGQn3PK9cYrxqPb9Weh+jD+/n5/wAHqvvv3Muw0nEX4iIK1Vu5nvpSsQDrcRHk/l6+cw4qCxvPbFXjUOz82YP0XbVeun5/wev2K13NwGlOrl+lxEbHQZngAmXBOIp9SShtXgcetNlHqtrb848USUy/NzSWULKb6lXkjeY3FFbXLyyGGiUoQMqReM/tqDVar/kzyz9EpXfrpfp+x7OFe4EUCwZft1pPuiJM4i4Cdc8vMfy5fhHjdeIn7W4wxDer7x+eY1famPvL8zEfRJ/eP9P2PXE5Xe55VfjJOpE/VIiodrHc3G+anVk9Skx5QdrLh+cYiuVVw/OMX7Xgu/5mezH6NOP+7Lz/AIPWBrnc3ICgin15IWkpUA4nUc3qEDRVu5oKhem130uJjyYqpr8owkVh5lLqUhBDiC2c6QqwNtRzHTbGL8Yj0T82bl6Ov76fn/B7ZoVZ7ndE8yKZJVRD5UAm6gb9Y3x3efncI/4N1eZBa4lLAzceUqA2ZL7ttvVHy9peIpikupmkuXX81s7D0q5x0b463TuEurTfc6Y3lpmcccz8jCipVz/mPEE+pMb3lwcVGMnOScWnV3pa8jncR4Hlw5HOL5lJOPtatc2lr4HJsbFteJZp0ZlFSySo631jT3CArSJb9Tcm0jjlkkDwV83REFR1N9sfP8dnjnyyyR6uz7Xhsbx41B9BpTxxLfb9xjCqn9+v9afZEZyh/fEt9v3GB1Tx4/1j2RHiex6VuKl+PJfrPsmCTnjiZ+37hA6XpW2Os+yYJOeOZn7Y9kQWwe4+6BOG14KNkBc3xSI6BVZ4u8DeD5e/yOXG3XMRpZPhRbzMznwHQGb/AMMTWnW9eK6SRLPVWWZnZgy8st1KXngnMW0EjMq2+wuY25Z8zXwX0NGCHJFr8X9WBhXjcKjTMComC3S56edF7BT08zbtCIuMP4MwJPKBrWLJKQRvHfZjN2ZDGqzcc3zQsxEdUr+G+BSlMnkGK6vUHuZmaYKL9fFxp7MrhxcyXpZ17i0nwePmWyT06JESwDkGRKSlz/FXqvo6IKt8nfE1s4dQv/qZh5Q5kTKB/YYyqbeFe87r1NmJtM0mxSl2ZbdC9bEZQgEaXN+jpigp3H4jrdO8wFTsAU5ABlOdMCU5AVOaQMrgKDFzpjAuawErhs0C0H4wldybkxtlNnlI4JcYMZvliR9UyI0vPrFvKzOXBNdZB/iCWuOp68bcUqb+D+hqzQ5kl+K+qKNo6CCnZAmtAIKdkaUbWNJ+OJb7fuMYVTx2/wBY9kRnKeOJb7fuMDqfjt/rH5CD2KtxUzx2x1n8jBZ3SsTP2h7IgVNP76Y6z+Rgs542mPtD2RBbFe4grSBOGCDZA1QZETpSYZmqWzIuzTUu9LrWW+OVkQtKiCRm2Ag327QeiDiRJ2T9L9M80P7ooXEXgPExLZOR9GbKmnLv4xpPpqDP6oMiiuuaiqUYddSZH90azLSbTz+R+YRLoyqJcWkqGgJAsBe5Onp1gXEnmtpuic3Qcku5vkhhuZdeyprmH2ypJSS5VJbYRY7Vc0X7GAHlpSlGJMLpTawvWpYf3xycJIbKQkXJBza3G3QdGvqEZtLdQvcu4KQFHQEi1+sRrlzvYyUX1f8AfM7hI8EE1O2vi/CDd9meuy3642CU7nGoTgzJ4QMCpHMa6z8Y85KcnW3S2p5YUglJGa9rHZDianPPr7Y82TFxEvcyV8jfB4170bPRs73Nc/KtFZ4QcCKtuFcZ95jU57ganZRRH7XYPct5FclveuOPcqnfPr7YQVOuhZS44rIkrVY7ANphjxcRH38l/ITeN+7Gjoc1wcTjBN8RYWPVXJU/3xUP4QmWSf33h1VvJrEsf74008cdq1H0xJmaNU5WlyVTmpV5uUnQsyz6h4L2RWVeU77HQx6oycaUn/fI8/JJ6r6fyW71EdZPhVOjK+zUWVfkqIqpIpNjO049U42ffFLxJ5oXE9EbeZdicr7lvycD/wBXI/8AykfGE9MNS9Mdk23m3nX1IK+LOZKEpJIF95Jts2AdMVHE6wZDdocxeXuSG9ggpOkCSIJugg0PJ61iW+2fZMDqXjp/rH5CCSmlXl/tH2TAqlrWnusfkIdC9RqebVhgnyiPUYPO6Vd/pIP9IiChziZtt7yFBXrixqqQioIeHyXEWv0jT8iIi2HUHuhiOYQyVC0PcRkYmGWGyCCXhXESi2DyQsggl4VxChYPIOaHDV0qV4OltCdfQN8Z3hXhQsHxY5oWQQS8K4hQsyZlW3WJlxUw00WWwtKF3u6cwTlT02JPUDAeLB3QS45oVxBItg+LHNGRCikJKiQnYCdB1RlcQrwolg+LHNCyCCXhXEKFg+LEPksYzvCvCgMkW1jI7IbMIZShaKQeTF6wx0En+kwKoa1d7rA9QiTTE56gt0/JbQdelWn5AxXuOcdNuO+Won1xj0Mupi4Is2T3xo/Ei3Hs/JvvI2do064r1iMWJhcrMh1Go2KTziBWHbXdO/0wUQZ9hM0nlkmcylaqQNqukfW5xv8AziocB39EXYm4SFvhgq8PcRSDwrQ1+mHzCAFDQswvCuIAUKFcQriAHEK0Ncc8LN0wA8NCuOeFcQAoUK4hXEAKFCuIbMIAeBOLCU74S3ABtiUwymVSZyc8FSdUoPzek/W5hu/KblE6TT6QWibPvHwhzE7ewadcVrYsId99c1Ml1QsNiU8wjJI0iXZUZqG6AqREoi8CUmDQTAsvvSrmZs6Hak7DFgH5KeN3btPeVeyj7lenWIKkXgSkdELaBZqkX06tutuDp8A+vT1xhyacH+zfqWn4xXpW81/DdWnoBgnLJvz6uwQtEpkzk835g/eT8YXJ5vzB+8n4xD5ZOeeV2D4QuWTnn1dg+ELQ1JnJ5vzB+8n4wuTzfmD95PxiHyyc8+ewfCFyyc8+rsHwhaGpM5PN+YP3k/GFyeb8wfvJ+MQ+WTnn1dg+ELlk559XYPhC0NSZyeb8wfvJ+MLk835g/eT8Yh8snPPq7B8IXLJzz6uwfCFoakzk835g/eT8YXJ5vzB+8n4xD5ZOefV2D4QuWTnn1dg+ELQ1JnJ5vzB+8n4wuTzfmD95PxiHyyc8+rsHwhcsnPPq7B8IWhTJnJ5w/wCxbrWn4xmmRfV/EdabH1TnPq09cV/LJzz6uwRgpx93Rx1ahzEwtCmWZfkZE3au68PnE3UPcn0axAefdmnMzhsB8lI2CBJbtugqUawuyiQmDJTrDJTaCgWEERs//9k=" id="apple-icon-link">
@@ -1462,7 +1476,6 @@ body.light-theme .bank-quick-chip.active {
           <div class="app-subtitle" id="header-period-subtitle">Ноябрь 2026</div>
         </div>
       </div>
-      <button type="button" class="mcc-quick-btn" id="open-mcc-checker-btn">MCC</button>
     </div>
   </header>
 
@@ -1517,147 +1530,40 @@ body.light-theme .bank-quick-chip.active {
       </div>
     </section>
 
-    <!-- ВКЛАДКА 2: ИМПОРТ -->
-    <section class="tab-section" id="tab-import">
+    <!-- ВКЛАДКА 2: MCC (Проверка 4-значных кодов терминалов и магазинов) -->
+    <section class="tab-section" id="tab-mcc">
       <div class="panel-card">
         <div class="panel-title">
-          <span>📷 Импорт и экспорт базы</span>
-          <span class="owner-badge" id="import-sync-badge">Офлайн-кэш активен</span>
+          <span>🔢 Проверка MCC-кодов и магазинов</span>
         </div>
-        
-
-        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
-          <button type="button" class="btn" id="sync-github-btn">🔄 Проверить data.json на сервере</button>
-          <button type="button" class="btn btn-secondary" id="paste-clipboard-btn">📋 Вставить из буфера</button>
-          <button type="button" class="btn btn-secondary" id="export-data-btn">💾 Скачать data.json</button>
-          <button type="button" class="btn btn-secondary" id="export-cards-btn">💳 Скачать cards_config.json</button>
+        <div class="search-input-wrap" style="margin-bottom:10px;">
+          <input type="text" id="mcc-tab-input" class="search-input" placeholder="Введите 4 цифры MCC (5411, 5814) или магазин (Купер, К&Б, Ozon Fresh)..." autocomplete="off">
+          <button type="button" class="search-clear-btn" id="mcc-tab-clear-btn" title="Очистить" aria-label="Очистить">✕</button>
         </div>
-
-        <div class="form-group" style="margin-bottom:10px;">
-          <label for="import-file-input">Загрузить готовый файл JSON с компьютера или телефона (.json):</label>
-          <input type="file" id="import-file-input" accept=".json,application/json" class="form-control">
+        <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:6px; font-weight:600;">Быстрый выбор популярных кодов и магазинов:</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;" id="mcc-tab-presets">
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="5411">5411 Супермаркеты</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="5814">5814 Фастфуд</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="5812">5812 Рестораны</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="5912">5912 Аптеки</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="5541">5541 АЗС</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="4812">4812 Салоны связи</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="7933">7933 Боулинг</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="Купер">🛒 Купер</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="Красное и Белое">🍷 К&Б / Бристоль</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="Ozon Fresh">🥦 Ozon Fresh</button>
         </div>
-
-        <div class="form-group" style="margin-bottom:10px;">
-          <label for="import-json-textarea">Или вставьте JSON / текстовый список категорий (напр.: Банк: Альфа / Владелец: Саша / - Аптеки 14%):</label>
-          <textarea id="import-json-textarea" class="code-area" placeholder="Вставьте сюда содержимое data.json или текстовый список категорий..."></textarea>
-        </div>
-
-        <div style="display:flex; flex-wrap:wrap; gap:8px;">
-          <button type="button" class="btn" id="apply-import-btn">✅ Импортировать в базу</button>
-          <button type="button" class="btn btn-secondary" id="fill-current-json-btn">📄 Вывести текущий data.json в поле</button>
-        </div>
-      </div>
-
-      </section>
-
-    <!-- ВКЛАДКА 3: РЕДАКТОР -->
-    <section class="tab-section" id="tab-editor">
-      <div class="panel-card">
-        <div class="panel-title">
-          <span>✏️ Редактор категорий и карт</span>
-          <span class="owner-badge" id="editor-owner-indicator">Денис и Саша</span>
-        </div>
-        
-
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="ed-profile">Чья карта (Владелец)</label>
-            <select id="ed-profile" class="form-control">
-              <option value="Денис">[Д] Денис</option>
-              <option value="Саша">[С] Саша</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="ed-bank-select">Банк / Карта</label>
-            <select id="ed-bank-select" class="form-control"></select>
-          </div>
-          <div class="form-group">
-            <label for="ed-new-bank-name">Или новый банк (напр. ЮMoney, WB Банк)</label>
-            <input type="text" id="ed-new-bank-name" class="form-control" placeholder="Напр.: WB Банк">
-          </div>
-        </div>
-
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="ed-cat-raw">Название категории со скрина</label>
-            <input type="text" id="ed-cat-raw" class="form-control" placeholder="Напр.: Супермаркеты">
-          </div>
-          <div class="form-group">
-            <label for="ed-percent">Процент кэшбэка (%)</label>
-            <input type="number" id="ed-percent" class="form-control" placeholder="5" step="0.5">
-          </div>
-          <div class="form-group">
-            <label for="ed-percent-sub">% с подпиской (если есть)</label>
-            <input type="number" id="ed-percent-sub" class="form-control" placeholder="10" step="0.5">
-          </div>
-          <div class="form-group">
-            <label for="ed-limit-rub">Лимит категории в ₽ (число)</label>
-            <input type="number" id="ed-limit-rub" class="form-control" placeholder="1500">
-          </div>
-        </div>
-
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="ed-condition">Условие / Даты (напр. до 15.11)</label>
-            <input type="text" id="ed-condition" class="form-control" placeholder="Напр.: При заказе от 1500 ₽, до 23.11">
-          </div>
-          <div class="form-group">
-            <label for="ed-mcc">MCC-коды (через запятую)</label>
-            <input type="text" id="ed-mcc" class="form-control" placeholder="5411, 5422, 5499">
-          </div>
-          <div class="form-group">
-            <label for="ed-is-promo">Короткая акция (🔥 Акция)?</label>
-            <select id="ed-is-promo" class="form-control">
-              <option value="false">Нет (обычная категория месяца)</option>
-              <option value="true">Да (короткая акция)</option>
-            </select>
-          </div>
-        </div>
-
-        <button type="button" class="btn" id="ed-save-cat-btn">➕ Сохранить / обновить категорию</button>
-      </div>
-
-      <!-- Редактор последних 4 цифр карт (хранятся в cards_config.json) -->
-      <div class="panel-card">
-        <div class="panel-title">💳 Реестр номеров карт</div>
-        
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="ed-card-bank">Выберите карту из реестра</label>
-            <select id="ed-card-bank" class="form-control"></select>
-          </div>
-          <div class="form-group">
-            <label for="ed-card-last4">Последние 4 цифры карты (если карт несколько — через запятую)</label>
-            <input type="text" id="ed-card-last4" class="form-control" maxlength="60" placeholder="Напр.: 1234 или 1234, 5678" value="0000">
-          </div>
-        </div>
-        <button type="button" class="btn btn-secondary" id="ed-save-last4-btn">💾 Обновить 4 цифры карты</button>
-      </div>
-
-      <!-- Список всех категорий -->
-      <div class="panel-card">
-        <div class="panel-title">📋 Все категории в базе</div>
-        <div id="editor-categories-list"></div>
+        <div id="mcc-tab-results"></div>
       </div>
     </section>
 
-    <!-- ВКЛАДКА 4: БАНКИ (Подписки + Справочник всех банков включая ЮMoney и WB Банк) -->
+    <!-- ВКЛАДКА 3: БАНКИ (Справочник всех 18 банков без блока подписок) -->
     <section class="tab-section" id="tab-banks">
-      <div class="panel-card" style="margin-bottom:12px;">
-        <div class="panel-title">
-          <span>🎛️ Активные подписки и надбавки банков</span>
-          
-        </div>
-        
-        <div class="subs-strip" id="subs-strip" aria-label="Переключатели подписок" style="flex-wrap:wrap; overflow-x:visible;"></div>
-      </div>
-
       <div class="panel-card" style="margin-bottom:12px;">
         <div class="panel-title" style="flex-wrap:wrap; gap:8px;">
           <span>🏦 Справочник банков</span>
           <div style="display:flex; align-items:center; gap:8px;">
-            <span class="owner-badge" id="banks-count-badge">19 банков</span>
+            <span class="owner-badge" id="banks-count-badge">18 банков</span>
             <button type="button" class="mcc-quick-btn" id="banks-search-toggle-btn" title="Поиск среди банков" style="height:30px; padding:0 10px; font-size:0.78rem;">🔍 Поиск</button>
           </div>
         </div>
@@ -1672,11 +1578,44 @@ body.light-theme .bank-quick-chip.active {
       <div id="banks-reference-list"></div>
     </section>
 
-    <!-- ВКЛАДКА 5: НАСТРОЙКИ -->
+    <!-- ВКЛАДКА 4: ПОДПИСКИ (Отдельное меню управления подписками и порогами оборота Дениса и Саши) -->
+    <section class="tab-section" id="tab-subs">
+      <div class="panel-card" style="margin-bottom:12px;">
+        <div class="panel-title">
+          <span>💎 Активные подписки и условия оборота</span>
+        </div>
+        <div class="subs-strip" id="subs-strip" aria-label="Переключатели подписок" style="flex-wrap:wrap; overflow-x:visible;"></div>
+      </div>
+
+      <div class="panel-card">
+        <div class="panel-title">📋 Что дают подписки и переключатели оборота</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:0.83rem; line-height:1.45;">
+          <div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border);">
+            <strong>🅰️ Alfa Only (по умолчанию включена у Дениса и Саши):</strong> увеличивает месячный лимит кэшбэка в Альфа-Банке с 5 000 ₽ до <strong>15 000 ₽/мес</strong> и даёт выбор 5 повышенных категорий (7%–14%).
+          </div>
+          <div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border);">
+            <strong>🟢 СберПрайм (по умолчанию включена у Дениса и Саши):</strong> обязательна для начисления кэшбэка в категориях СберБанка и увеличивает лимит бонусов Спасибо до <strong>10 000/мес</strong>.
+          </div>
+          <div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border);">
+            <strong>🔴 МТС Premium (по умолчанию включена у Дениса и Саши):</strong> даёт <strong>5% кэшбэка в «Супермаркетах»</strong> по карте МТС Деньги (без подписки начисляется только 1%) и увеличивает лимит до 10 000 баллов/мес.
+          </div>
+          <div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border);">
+            <strong>🟠 ПСБ Orange (траты >10к / >80к ₽) (по умолчанию выключена):</strong> включает в поиске категории карты ПСБ Orange Premium Club (•• 3184): <strong>5% «Отели и билеты»</strong> (действует при покупках > 10 000 ₽/мес) и <strong>10% «Кафе, рестораны, фастфуд»</strong> (действует при покупках > 80 000 ₽/мес).
+          </div>
+          <div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border);">
+            <strong>🔵 ПСБ траты > 75 000 ₽ (+2%) (по умолчанию выключена):</strong> прибавляет <strong>+2%</strong> ко всем выбранным категориям базовой карты ПСБ «Твой кэшбэк» (•• 3269, 5517).
+          </div>
+          <div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border);">
+            <strong>🟣 Подписка «Моя жизнь» (УБРиР) и Подписка Ингосстрах (по умолчанию выключены):</strong> активируют повышенный лимит / ставку по онлайн-покупкам в УБРиР и бонусные условия в Инго Банке.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ВКЛАДКА 5: НАСТРОЙКИ (Тема, Шрифт, Сброс кэша + Редактор и Импорт в самом низу) -->
     <section class="tab-section" id="tab-settings">
       <div class="panel-card">
-        <div class="panel-title">🎨 Тема оформления и иконка</div>
-        
+        <div class="panel-title">🎨 Тема оформления и ярлык приложения</div>
         <div class="icons-grid" id="icons-selector-grid"></div>
         <div style="margin-top:14px; padding-top:12px; border-top:1px solid var(--border);">
           <div style="font-size:0.85rem; font-weight:700; margin-bottom:8px;">🔤 Шрифт карточек:</div>
@@ -1705,10 +1644,129 @@ body.light-theme .bank-quick-chip.active {
           <button type="button" class="btn btn-danger" id="settings-reset-db-btn">🔄 Сбросить локальный кэш к базе Ноября 2026</button>
         </div>
       </div>
+
+      <!-- Спрятанные в самый низ Настроек разделы Редактора и Импорта -->
+      <details class="mcc-excl-spoiler" style="margin-top:14px; padding:12px 14px; border-radius:14px; background:var(--bg-card); border:1px solid var(--border);">
+        <summary style="font-size:0.95rem; font-weight:700; color:var(--text); cursor:pointer;">✏️ Редактор категорий и реестр номеров карт (развернуть)</summary>
+        <div style="margin-top:12px;">
+          <div class="panel-card" style="margin-bottom:12px;">
+            <div class="panel-title">
+              <span>✏️ Добавить / изменить категорию</span>
+              <span class="owner-badge" id="editor-owner-indicator">Денис и Саша</span>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="ed-profile">Чья карта (Владелец)</label>
+                <select id="ed-profile" class="form-control">
+                  <option value="Денис">[Д] Денис</option>
+                  <option value="Саша">[С] Саша</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="ed-bank-select">Банк / Карта</label>
+                <select id="ed-bank-select" class="form-control"></select>
+              </div>
+              <div class="form-group">
+                <label for="ed-new-bank-name">Или новый банк (напр. ЮMoney, WB Банк)</label>
+                <input type="text" id="ed-new-bank-name" class="form-control" placeholder="Напр.: WB Банк">
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="ed-cat-raw">Название категории со скрина</label>
+                <input type="text" id="ed-cat-raw" class="form-control" placeholder="Напр.: Супермаркеты">
+              </div>
+              <div class="form-group">
+                <label for="ed-percent">Процент кэшбэка (%)</label>
+                <input type="number" id="ed-percent" class="form-control" placeholder="5" step="0.5">
+              </div>
+              <div class="form-group">
+                <label for="ed-percent-sub">% с подпиской (если есть)</label>
+                <input type="number" id="ed-percent-sub" class="form-control" placeholder="10" step="0.5">
+              </div>
+              <div class="form-group">
+                <label for="ed-limit-rub">Лимит категории в ₽ (число)</label>
+                <input type="number" id="ed-limit-rub" class="form-control" placeholder="1500">
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="ed-condition">Условие / Даты (напр. до 15.11)</label>
+                <input type="text" id="ed-condition" class="form-control" placeholder="Напр.: При заказе от 1500 ₽, до 23.11">
+              </div>
+              <div class="form-group">
+                <label for="ed-mcc">MCC-коды (через запятую)</label>
+                <input type="text" id="ed-mcc" class="form-control" placeholder="5411, 5422, 5499">
+              </div>
+              <div class="form-group">
+                <label for="ed-is-promo">Короткая акция (🔥 Акция)?</label>
+                <select id="ed-is-promo" class="form-control">
+                  <option value="false">Нет (обычная категория месяца)</option>
+                  <option value="true">Да (короткая акция)</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="button" class="btn" id="ed-save-cat-btn">➕ Сохранить / обновить категорию</button>
+          </div>
+
+          <div class="panel-card" style="margin-bottom:12px;">
+            <div class="panel-title">💳 Реестр номеров карт</div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="ed-card-bank">Выберите карту из реестра</label>
+                <select id="ed-card-bank" class="form-control"></select>
+              </div>
+              <div class="form-group">
+                <label for="ed-card-last4">Последние 4 цифры карты (через запятую)</label>
+                <input type="text" id="ed-card-last4" class="form-control" maxlength="60" placeholder="Напр.: 1234 или 1234, 5678" value="0000">
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary" id="ed-save-last4-btn">💾 Обновить 4 цифры карты</button>
+          </div>
+
+          <div class="panel-card" style="margin-bottom:0;">
+            <div class="panel-title">📋 Все категории в базе</div>
+            <div id="editor-categories-list"></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="mcc-excl-spoiler" style="margin-top:10px; padding:12px 14px; border-radius:14px; background:var(--bg-card); border:1px solid var(--border);">
+        <summary style="font-size:0.95rem; font-weight:700; color:var(--text); cursor:pointer;">📷 Импорт и экспорт базы JSON (развернуть)</summary>
+        <div style="margin-top:12px;">
+          <div class="panel-card" style="margin-bottom:0;">
+            <div class="panel-title">
+              <span>📷 Импорт и экспорт базы</span>
+              <span class="owner-badge" id="import-sync-badge">Офлайн-кэш активен</span>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+              <button type="button" class="btn" id="sync-github-btn">🔄 Обновить data.json с GitHub</button>
+              <button type="button" class="btn btn-secondary" id="paste-clipboard-btn">📋 Вставить из буфера</button>
+              <button type="button" class="btn btn-secondary" id="export-data-btn">💾 Скачать data.json</button>
+              <button type="button" class="btn btn-secondary" id="export-cards-btn">💳 Скачать cards_config.json</button>
+            </div>
+            <div class="form-group" style="margin-bottom:10px;">
+              <label for="import-file-input">Загрузить готовый файл JSON (.json):</label>
+              <input type="file" id="import-file-input" accept=".json,application/json" class="form-control">
+            </div>
+            <div class="form-group" style="margin-bottom:10px;">
+              <label for="import-json-textarea">Или вставьте содержимое JSON вручную:</label>
+              <textarea id="import-json-textarea" class="code-area" placeholder="Вставьте сюда содержимое data.json..."></textarea>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <button type="button" class="btn" id="apply-import-btn">✅ Импортировать в базу</button>
+              <button type="button" class="btn btn-secondary" id="fill-current-json-btn">📄 Вывести текущий data.json в поле</button>
+            </div>
+          </div>
+        </div>
+      </details>
     </section>
   </main>
 
-  <!-- Модальная шторка (Bottom Sheet) для ℹ️ Условия / MCC и быстрой проверки 4-значного MCC -->
+  <!-- Модальная шторка (Bottom Sheet) для ℹ️ Условия / MCC -->
   <div class="sheet-overlay" id="sheet-overlay" role="dialog" aria-modal="true">
     <div class="bottom-sheet" id="bottom-sheet">
       <div class="sheet-header">
@@ -1722,7 +1780,7 @@ body.light-theme .bank-quick-chip.active {
     </div>
   </div>
 
-    <!-- Модальное окно подтверждения скрытия карты (по долгому нажатию 1 сек) -->
+  <!-- Модальное окно подтверждения скрытия карты (по долгому нажатию 1 сек) -->
   <div class="confirm-modal-overlay" id="confirm-modal-overlay" style="display:none;">
     <div class="confirm-modal-card">
       <div class="confirm-modal-icon">👁️‍🗨️</div>
@@ -1739,23 +1797,23 @@ body.light-theme .bank-quick-chip.active {
   <!-- Всплывающее уведомление -->
   <div class="toast-msg" id="toast-msg"></div>
 
-  <!-- Нижняя навигационная панель (5 вкладок) -->
+  <!-- Нижняя навигационная панель (5 вкладок: Поиск, MCC, Банки, Подписки, Настройки) -->
   <nav class="bottom-nav" aria-label="Основная навигация">
     <button type="button" class="nav-btn active" data-tab="tab-search" id="nav-btn-search">
       <span class="nav-icon">🔍</span>
       <span>Поиск</span>
     </button>
-    <button type="button" class="nav-btn" data-tab="tab-import" id="nav-btn-import">
-      <span class="nav-icon">📷</span>
-      <span>Импорт</span>
-    </button>
-    <button type="button" class="nav-btn" data-tab="tab-editor" id="nav-btn-editor">
-      <span class="nav-icon">✏️</span>
-      <span>Редактор</span>
+    <button type="button" class="nav-btn" data-tab="tab-mcc" id="nav-btn-mcc">
+      <span class="nav-icon">🔢</span>
+      <span>MCC</span>
     </button>
     <button type="button" class="nav-btn" data-tab="tab-banks" id="nav-btn-banks">
       <span class="nav-icon">🏦</span>
       <span>Банки</span>
+    </button>
+    <button type="button" class="nav-btn" data-tab="tab-subs" id="nav-btn-subs">
+      <span class="nav-icon">💎</span>
+      <span>Подписки</span>
     </button>
     <button type="button" class="nav-btn" data-tab="tab-settings" id="nav-btn-settings">
       <span class="nav-icon">⚙️</span>
@@ -2492,7 +2550,7 @@ body.light-theme .bank-quick-chip.active {
     cardsConfig: storage.get('cb_nav_cards_v17', JSON.parse(JSON.stringify(DEFAULT_CARDS_CONFIG))),
     subs: getInitialSubs(),
     hiddenCards: storage.get('cb_nav_hidden_v17', []),
-    selectedIcon: storage.get('cb_nav_icon_v12', 'icon_5'),
+    selectedIcon: storage.get('cb_nav_icon_v18', 'icon_1'),
     selectedFont: storage.get('cb_nav_font_v12', 'font_5'),
     activeChip: null,
     searchQuery: '',
@@ -3078,172 +3136,138 @@ body.light-theme .bank-quick-chip.active {
     overlay.classList.add('open');
   }
 
-  function openMccCheckerModal() {
-    const overlay = document.getElementById('sheet-overlay');
-    const titleEl = document.getElementById('sheet-title');
-    const subEl = document.getElementById('sheet-subtitle');
-    const bodyEl = document.getElementById('sheet-body');
-    if (!overlay || !bodyEl) return;
+  function runMccTabLookup(queryStr) {
+    const resEl = document.getElementById('mcc-tab-results');
+    if (!resEl) return;
+    const rawQ = (queryStr || '').trim();
+    const qLower = rawQ.toLowerCase();
+    if (!rawQ) {
+      resEl.innerHTML = '<div style="font-size:0.84rem; color:var(--text-muted); padding:8px 0;">Введите 4 цифры кода терминала (например, <strong>5411</strong>, <strong>5814</strong>) или выберите магазин выше, чтобы узнать расшифровку MCC, исключения банков и лучшие карты для оплаты.</div>';
+      return;
+    }
 
-    titleEl.textContent = 'Проверка MCC и магазинов';
-    subEl.textContent = 'Введите 4 цифры MCC или название магазина (напр. Купер, КБ, Ozon Fresh, 4812)';
+    let resHtml = '';
+    let targetMccCodes = [];
 
-    bodyEl.innerHTML =
-      '<div class="sheet-block">' +
-        '<input type="text" id="mcc-modal-input" class="form-control" placeholder="Код MCC (5411, 4812) или магазин (Купер, КБ, Вкусно и точка)..." style="font-size:0.95rem; margin-bottom:10px;">' +
-        '<div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:5px; font-weight:600;">Быстрая проверка кодов и магазинов:</div>' +
-        '<div style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:8px;">' +
-          '<button type="button" class="mcc-pill mcc-preset-btn" data-code="5411">5411 Супермаркеты</button>' +
-          '<button type="button" class="mcc-pill mcc-preset-btn" data-code="5814">5814 Фастфуд</button>' +
-          '<button type="button" class="mcc-pill mcc-preset-btn" data-code="5812">5812 Рестораны</button>' +
-          '<button type="button" class="mcc-pill mcc-preset-btn" data-code="4812">4812 Салоны связи</button>' +
-          '<button type="button" class="mcc-pill mcc-preset-btn" data-code="7933">7933 Боулинг</button>' +
-          '<button type="button" class="mcc-pill mcc-preset-btn" data-code="Купер">🛒 Купер</button>' +
-          '<button type="button" class="mcc-pill mcc-preset-btn" data-code="Красное и Белое">🍷 К&Б / Бристоль</button>' +
-          '<button type="button" class="mcc-pill mcc-preset-btn" data-code="Ozon Fresh">🥦 Ozon Fresh</button>' +
-        '</div>' +
-        '<div id="mcc-modal-results" style="margin-top:10px;"></div>' +
-      '</div>';
+    const matchedMerchants = POPULAR_MERCHANTS_DB.filter(function (m) {
+      return m.name.toLowerCase().indexOf(qLower) !== -1 ||
+             m.aliases.some(function (a) { return a.indexOf(qLower) !== -1 || qLower.indexOf(a) !== -1; });
+    });
 
-    overlay.classList.add('open');
-
-    const inputEl = document.getElementById('mcc-modal-input');
-    const resEl = document.getElementById('mcc-modal-results');
-
-    function runMccLookup(queryStr) {
-      const rawQ = (queryStr || '').trim();
-      const qLower = rawQ.toLowerCase();
-      if (!rawQ) {
-        resEl.innerHTML = '<div style="font-size:0.82rem; color:var(--text-muted);">Введите 4 цифры кода терминала или название торговой точки выше.</div>';
-        return;
-      }
-
-      let resHtml = '';
-      let targetMccCodes = [];
-
-      const matchedMerchants = POPULAR_MERCHANTS_DB.filter(function (m) {
-        return m.name.toLowerCase().indexOf(qLower) !== -1 ||
-               m.aliases.some(function (a) { return a.indexOf(qLower) !== -1 || qLower.indexOf(a) !== -1; });
-      });
-
-      if (/^\d{4}$/.test(rawQ)) {
-        targetMccCodes = [rawQ];
-      } else if (matchedMerchants.length > 0) {
-        matchedMerchants.forEach(function (mm) {
-          resHtml +=
-            '<div class="mcc-decoded-banner" style="margin-bottom:8px;">' +
-              '<div class="mcc-decoded-code">🏪 Торговая точка: ' + mm.name + '</div>' +
-              '<div class="mcc-decoded-title">Обычные MCC-коды: <strong style="color:var(--accent);">' + mm.mccs.join(', ') + '</strong> (' + mm.category + ')</div>' +
-              '<div class="mcc-decoded-cat" style="margin-top:3px;">💡 ' + mm.note + '</div>' +
-            '</div>';
-          mm.mccs.forEach(function (c) {
-            if (targetMccCodes.indexOf(c) === -1) targetMccCodes.push(c);
-          });
-        });
-      }
-
-      const clean = targetMccCodes[0] || rawQ;
-      const decoded = /^\d{4}$/.test(clean) ? decodeMccCode(clean) : null;
-
-      if (/^\d{4}$/.test(rawQ)) {
-        if (decoded) {
-          resHtml +=
-            '<div class="mcc-decoded-banner">' +
-              '<div class="mcc-decoded-code">📌 Расшифровка MCC ' + clean + '</div>' +
-              '<div class="mcc-decoded-title">' + decoded.title + '</div>' +
-              '<div class="mcc-decoded-cat">Стандартная категория: <strong style="color:var(--text);">' + decoded.category + '</strong></div>' +
-            '</div>';
-        } else {
-          resHtml +=
-            '<div class="mcc-decoded-banner">' +
-              '<div class="mcc-decoded-code">📌 Код терминала MCC ' + clean + '</div>' +
-              '<div class="mcc-decoded-title">Специализированный MCC-код</div>' +
-            '</div>';
-        }
-      }
-
-      const excludedBanksNames = [];
-      if (/^\d{4}$/.test(clean)) {
-        const refBanks = (state.cardsConfig && state.cardsConfig.banks_mcc_reference) || {};
-        Object.keys(refBanks).forEach(function (bid) {
-          if (bid === 'crediteurope') return;
-          if (isMccExcludedInBank(bid, clean)) {
-            excludedBanksNames.push(refBanks[bid].bank_name || refBanks[bid].bank || bid);
-          }
-        });
-      }
-
-      const allItems = getAllFamilyItems(false);
-      const matched = [];
-      let excludedNote = '';
-
-      allItems.forEach(function (item) {
-        const mccData = getCategoryMccList(item.bank_id, item.cat);
-        const hit = mccData.list.find(function (m) {
-          return targetMccCodes.some(function (tc) { return m.code === tc; }) ||
-                 (m.code && m.code.indexOf(clean) !== -1);
-        });
-        if (hit) {
-          matched.push({ item: item, hit: hit, isExact: mccData.isExactBank });
-        }
-        if ((clean === '7933' || clean === '7996') && item.bank_id === 'ingosstrakh' && item.cat.category_raw === 'Активный отдых') {
-          excludedNote = '⚠️ В Ингосстрах Банке по категории «Активный отдых» код ' + clean + ' (боулинг/аттракционы) НЕ входит в список (там только 7032, 7941, 7992, 7997)!';
-        }
-      });
-
-      matched.sort(function (a, b) { return b.item.effectivePercent - a.item.effectivePercent; });
-
-      if (excludedNote) {
-        resHtml += '<div class="mcc-warn-box" style="margin-bottom:8px;">' + excludedNote + '</div>';
-      }
-
-      if (excludedBanksNames.length > 0) {
+    if (/^\d{4}$/.test(rawQ)) {
+      targetMccCodes = [rawQ];
+    } else if (matchedMerchants.length > 0) {
+      matchedMerchants.forEach(function (mm) {
         resHtml +=
-          '<div class="mcc-warn-box" style="margin-bottom:8px; border-color:rgba(244,63,94,0.45); background:rgba(244,63,94,0.12); color:#fda4af;">' +
-            '⛔ <strong>В списке исключений (0% даже по «1% на всё»):</strong> ' + excludedBanksNames.join(', ') +
+          '<div class="mcc-decoded-banner" style="margin-bottom:8px;">' +
+            '<div class="mcc-decoded-code">🏪 Торговая точка: ' + mm.name + '</div>' +
+            '<div class="mcc-decoded-title">Обычные MCC-коды: <strong style="color:var(--accent);">' + mm.mccs.join(', ') + '</strong> (' + mm.category + ')</div>' +
+            '<div class="mcc-decoded-cat" style="margin-top:3px;">💡 ' + mm.note + '</div>' +
+          '</div>';
+        mm.mccs.forEach(function (c) {
+          if (targetMccCodes.indexOf(c) === -1) targetMccCodes.push(c);
+        });
+      });
+    }
+
+    const clean = targetMccCodes[0] || rawQ;
+    const decoded = /^\d{4}$/.test(clean) ? decodeMccCode(clean) : null;
+
+    if (/^\d{4}$/.test(rawQ)) {
+      if (decoded) {
+        resHtml +=
+          '<div class="mcc-decoded-banner">' +
+            '<div class="mcc-decoded-code">📌 Расшифровка MCC ' + clean + '</div>' +
+            '<div class="mcc-decoded-title">' + decoded.title + '</div>' +
+            '<div class="mcc-decoded-cat">Стандартная категория: <strong style="color:var(--text);">' + decoded.category + '</strong></div>' +
+          '</div>';
+      } else {
+        resHtml +=
+          '<div class="mcc-decoded-banner">' +
+            '<div class="mcc-decoded-code">📌 Код терминала MCC ' + clean + '</div>' +
+            '<div class="mcc-decoded-title">Специализированный MCC-код</div>' +
           '</div>';
       }
+    }
 
-      resHtml += '<div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); font-weight:700; margin:8px 0 6px;">💳 Карты с повышенным кэшбэком (' + matched.length + '):</div>';
+    const excludedBanksNames = [];
+    if (/^\d{4}$/.test(clean)) {
+      const refBanks = (state.cardsConfig && state.cardsConfig.banks_mcc_reference) || {};
+      Object.keys(refBanks).forEach(function (bid) {
+        if (bid === 'crediteurope' || bid === 'mts_supreme') return;
+        if (isMccExcludedInBank(bid, clean)) {
+          excludedBanksNames.push(refBanks[bid].bank_name || refBanks[bid].bank || bid);
+        }
+      });
+    }
 
-      if (matched.length === 0) {
-        const allPurchaseCards = allItems.filter(function (it) {
-          return it.cat.category_standard === 'Все покупки' && !isMccExcludedInBank(it.bank_id, clean, it.bank);
-        });
-        const safeFallbackText = allPurchaseCards.length > 0
-          ? ('Рекомендуем оплатить картой «1% на все покупки», где код НЕ в исключениях: <strong>' + allPurchaseCards.map(function (c) { return c.bank + ' (' + c.owner + ')'; }).join(', ') + '</strong>.')
-          : 'Этот код входит в список исключений большинства банков (кэшбэк 0%).';
+    const allItems = getAllFamilyItems(false);
+    const matched = [];
+    let excludedNote = '';
 
-        resHtml += '<div style="font-size:0.83rem; color:var(--text-muted); padding:8px 10px; background:var(--bg-elevated); border-radius:8px;">Повышенных категорий по коду <strong>' + clean + '</strong> в этом месяце нет. ' + safeFallbackText + '</div>';
-      } else {
-        resHtml += matched.map(function (m, idx) {
-          return '<div style="display:flex; justify-content:space-between; align-items:center; padding:9px 11px; background:var(--bg-elevated); border:1px solid var(--border); border-radius:10px; margin-bottom:6px;">' +
+    allItems.forEach(function (item) {
+      const mccData = getCategoryMccList(item.bank_id, item.cat);
+      const hit = mccData.list.find(function (m) {
+        return targetMccCodes.some(function (tc) { return m.code === tc; }) ||
+               (m.code && m.code.indexOf(clean) !== -1);
+      });
+      if (hit) {
+        matched.push({ item: item, hit: hit, isExact: mccData.isExactBank });
+      }
+      if ((clean === '7933' || clean === '7996') && item.bank_id === 'ingosstrakh' && item.cat.category_raw === 'Активный отдых') {
+        excludedNote = '⚠️ В Ингосстрах Банке по категории «Активный отдых» код ' + clean + ' (боулинг/аттракционы) НЕ входит в список (там только 7032, 7941, 7992, 7997)!';
+      }
+    });
+
+    matched.sort(function (a, b) { return b.item.effectivePercent - a.item.effectivePercent; });
+
+    if (excludedNote) {
+      resHtml += '<div class="mcc-warn-box" style="margin-bottom:8px;">' + excludedNote + '</div>';
+    }
+
+    if (excludedBanksNames.length > 0) {
+      resHtml +=
+        '<div class="mcc-warn-box" style="margin-bottom:8px; border-color:rgba(244,63,94,0.45); background:rgba(244,63,94,0.12); color:#fda4af;">' +
+          '⛔ <strong>В списке исключений (0% даже по «1% на всё»):</strong> ' + excludedBanksNames.join(', ') +
+        '</div>';
+    }
+
+    resHtml += '<div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); font-weight:700; margin:8px 0 6px;">💳 Карты с повышенным кэшбэком (' + matched.length + '):</div>';
+
+    if (matched.length === 0) {
+      const allPurchaseCards = allItems.filter(function (it) {
+        return it.cat.category_standard === 'Все покупки' && !isMccExcludedInBank(it.bank_id, clean, it.bank);
+      });
+      const safeFallbackText = allPurchaseCards.length > 0
+        ? allPurchaseCards.map(function (it) { return it.bank + ' (' + it.owner + ' • ' + formatCardNumbersDisplay(it.card_last4) + ' — ' + it.effectiveDisplay + ')'; }).join(', ')
+        : 'любой базовой картой, где этот MCC не в исключениях';
+      resHtml +=
+        '<div style="padding:10px; border-radius:10px; background:var(--bg); border:1px solid var(--border); font-size:0.84rem;">' +
+          'Карт со специальной повышенной категорией под <strong>' + rawQ + '</strong> не найдено.<br>' +
+          '<span style="color:var(--accent-green);">💡 Чем платить с базовым кэшбэком (не в исключениях):</span> ' + safeFallbackText + '.' +
+        '</div>';
+    } else {
+      matched.forEach(function (m, idx) {
+        const badge = m.isExact ? '<span style="color:var(--accent-green); font-size:0.72rem;">✓ Точный MCC банка</span>' : '<span style="color:var(--accent-amber); font-size:0.72rem;">Стандартный MCC</span>';
+        resHtml +=
+          '<div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border); margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; gap:8px;">' +
             '<div>' +
-              '<div style="font-weight:700; font-size:0.9rem; display:flex; align-items:center; gap:6px;">' + renderBankLogoBadge(m.item.bank_id, m.item.bank) + '<span>#' + (idx + 1) + ' • ' + m.item.bank + '</span></div><div class="bank-owners-row" style="margin-top:4px;">' + renderOwnerChip(m.item.owner, m.item.card_last4) + '</div>' +
-              '<div style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;">Категория: <strong>' + m.item.cat.category_raw + '</strong> • Лимит: ' + (m.item.cat.limit || (m.item.bank_terms && m.item.bank_terms.monthly_limit) || '—') + '</div>' +
+              '<div style="font-weight:700; font-size:0.9rem; display:flex; align-items:center; gap:6px;">' + renderBankLogoBadge(m.item.bank_id, m.item.bank) + '<span>#' + (idx + 1) + ' • ' + m.item.bank + '</span></div>' +
+              '<div class="bank-owners-row" style="margin-top:4px;">' + renderOwnerChip(m.item.owner, m.item.card_last4) + '</div>' +
+              '<div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Категория: <strong>' + m.item.cat.category_raw + '</strong> • Лимит: ' + (m.item.cat.limit || (m.item.bank_terms && m.item.bank_terms.monthly_limit) || '—') + '</div>' +
+              '<div>' + badge + '</div>' +
             '</div>' +
             '<div style="font-size:1.2rem; font-weight:800; color:var(--accent-green);">' + m.item.effectiveDisplay + '</div>' +
           '</div>';
-        }).join('');
-      }
-
-      resEl.innerHTML = resHtml;
+      });
     }
 
-    inputEl.addEventListener('input', function () {
-      runMccLookup(inputEl.value);
-    });
+    resEl.innerHTML = resHtml;
+  }
 
-    bodyEl.querySelectorAll('.mcc-preset-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        const code = btn.getAttribute('data-code');
-        inputEl.value = code;
-        runMccLookup(code);
-      });
-    });
-
-    runMccLookup('');
-    setTimeout(function () { inputEl.focus(); }, 120);
+  function renderMccTab() {
+    const inp = document.getElementById('mcc-tab-input');
+    runMccTabLookup(inp ? inp.value : '');
   }
 
   function renderSearchTab() {
@@ -4172,7 +4196,7 @@ body.light-theme .bank-quick-chip.active {
 
   function applySelectedIcon(iconId) {
     state.selectedIcon = iconId;
-    storage.set('cb_nav_icon_v12', iconId);
+    storage.set('cb_nav_icon_v18', iconId);
 
     const variant = ICON_VARIANTS.find(function (v) { return v.id === iconId; }) || ICON_VARIANTS[4];
     const th = variant.theme;
@@ -4230,14 +4254,16 @@ body.light-theme .bank-quick-chip.active {
         card.className = 'icon-option' + (state.selectedIcon === v.id ? ' active' : '');
         const iconSrc = EMBEDDED_ICONS[v.id] || ('./icons/' + v.id + '.png');
 
+        const num = v.id.replace('icon_', '');
         card.innerHTML =
           '<img src="' + iconSrc + '" alt="' + v.title + '">' +
           '<div class="icon-option-title">' + v.title + '</div>' +
-          '<div style="display:flex; justify-content:center; gap:4px; margin-top:6px;">' +
-            '<span style="width:12px; height:12px; border-radius:50%; background:' + v.theme.bg + '; border:1px solid rgba(148,163,184,0.5);"></span>' +
-            '<span style="width:12px; height:12px; border-radius:50%; background:' + v.theme.card + '; border:1px solid rgba(148,163,184,0.5);"></span>' +
-            '<span style="width:12px; height:12px; border-radius:50%; background:' + v.theme.accent + ';"></span>' +
-          '</div>';
+          '<div style="display:flex; justify-content:center; gap:4px; margin-top:4px;">' +
+            '<span style="width:10px; height:10px; border-radius:50%; background:' + v.theme.bg + '; border:1px solid rgba(148,163,184,0.5);"></span>' +
+            '<span style="width:10px; height:10px; border-radius:50%; background:' + v.theme.card + '; border:1px solid rgba(148,163,184,0.5);"></span>' +
+            '<span style="width:10px; height:10px; border-radius:50%; background:' + v.theme.accent + ';"></span>' +
+          '</div>' +
+          '<a href="./index.html?icon=' + num + '" class="set-icon-link" style="margin-top:6px; font-size:0.68rem; display:inline-block; padding:2px 6px; border-radius:6px; background:rgba(56,189,248,0.15); color:var(--accent); text-decoration:none; font-weight:600;" onclick="event.stopPropagation();">Ярлык №' + num + ' ↗</a>';
 
         card.addEventListener('click', function () {
           applySelectedIcon(v.id);
@@ -4282,6 +4308,7 @@ body.light-theme .bank-quick-chip.active {
     }
 
     renderSubsStrip();
+    renderMccTab();
     renderSearchTab();
     renderBanksTab();
     renderEditorTab();
@@ -4386,12 +4413,31 @@ body.light-theme .bank-quick-chip.active {
       });
     }
 
-    const mccQuickBtn = document.getElementById('open-mcc-checker-btn');
-    if (mccQuickBtn) {
-      mccQuickBtn.addEventListener('click', function () {
-        openMccCheckerModal();
+    const mccTabInput = document.getElementById('mcc-tab-input');
+    const mccTabClear = document.getElementById('mcc-tab-clear-btn');
+    if (mccTabInput) {
+      mccTabInput.addEventListener('input', function () {
+        if (mccTabClear) mccTabClear.style.display = mccTabInput.value ? 'block' : 'none';
+        runMccTabLookup(mccTabInput.value);
       });
     }
+    if (mccTabClear && mccTabInput) {
+      mccTabClear.addEventListener('click', function () {
+        mccTabInput.value = '';
+        mccTabClear.style.display = 'none';
+        runMccTabLookup('');
+      });
+    }
+    document.querySelectorAll('#mcc-tab-presets .mcc-preset-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const code = btn.getAttribute('data-code') || '';
+        if (mccTabInput) {
+          mccTabInput.value = code;
+          if (mccTabClear) mccTabClear.style.display = code ? 'block' : 'none';
+        }
+        runMccTabLookup(code);
+      });
+    });
 
     const overlay = document.getElementById('sheet-overlay');
     const closeBtn = document.getElementById('sheet-close-btn');
@@ -4448,8 +4494,9 @@ body.light-theme .bank-quick-chip.active {
         const sec = document.getElementById(targetId);
         if (sec) sec.classList.add('active');
         if (targetId === 'tab-banks') renderBanksTab();
-        if (targetId === 'tab-editor') renderEditorTab();
-        if (targetId === 'tab-settings') renderSettingsTab();
+        if (targetId === 'tab-mcc') renderMccTab();
+        if (targetId === 'tab-subs') renderSubsStrip();
+        if (targetId === 'tab-settings') { renderSettingsTab(); renderEditorTab(); }
         if (targetId === 'tab-search') renderSearchTab();
       });
     });
