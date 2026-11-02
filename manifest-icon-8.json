@@ -1,40 +1,28 @@
 {
-  "id": "./app8.html",
-  "name": "Кэшбэк-навигатор v2.0",
+  "id": "./?icon=8",
+  "name": "Кэшбэк-навигатор v2.0 (Светлая жемчужная)",
   "short_name": "Кэшбэк v2",
-  "description": "Семейный офлайн PWA-навигатор кэшбэка (8. Светлая жемчужная ☀️)",
+  "description": "Офлайн PWA-навигатор кэшбэка — Светлая жемчужная",
   "lang": "ru",
   "dir": "ltr",
-  "start_url": "./app8.html",
+  "start_url": "./index.html?icon=8",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f1f5f9",
+  "background_color": "#f8fafc",
   "theme_color": "#ffffff",
   "icons": [
     {
       "src": "./icon_8_192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
       "src": "./icon_8_512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icon_8_192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "./icon_8_512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ]
 }

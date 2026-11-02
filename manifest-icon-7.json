@@ -1,40 +1,28 @@
 {
-  "id": "./app7.html",
-  "name": "Кэшбэк-навигатор v2.0",
+  "id": "./?icon=7",
+  "name": "Кэшбэк-навигатор v2.0 (Аметистовый туман)",
   "short_name": "Кэшбэк v2",
-  "description": "Семейный офлайн PWA-навигатор кэшбэка (7. Магнит выгоды ₽%)",
+  "description": "Офлайн PWA-навигатор кэшбэка — Аметистовый туман",
   "lang": "ru",
   "dir": "ltr",
-  "start_url": "./app7.html",
+  "start_url": "./index.html?icon=7",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#170d1e",
-  "theme_color": "#271533",
+  "background_color": "#150b1f",
+  "theme_color": "#271538",
   "icons": [
     {
       "src": "./icon_7_192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
       "src": "./icon_7_512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icon_7_192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "./icon_7_512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ]
 }
