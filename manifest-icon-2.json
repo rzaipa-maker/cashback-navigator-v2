@@ -1,28 +1,40 @@
 {
-  "id": "./?icon=2",
-  "name": "Кэшбэк-навигатор v2.0 (Глубокий индиго)",
+  "id": "./app2.html",
+  "name": "Кэшбэк-навигатор v2.0",
   "short_name": "Кэшбэк v2",
-  "description": "Офлайн PWA-навигатор кэшбэка — Глубокий индиго",
+  "description": "Семейный офлайн PWA-навигатор кэшбэка (2. Золотые карты +25%)",
   "lang": "ru",
   "dir": "ltr",
-  "start_url": "./index.html?icon=2",
+  "start_url": "./app2.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0b1021",
-  "theme_color": "#17203d",
+  "background_color": "#110f29",
+  "theme_color": "#1e1b4b",
   "icons": [
     {
       "src": "./icon_2_192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "./icon_2_512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "./icon_2_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./icon_2_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#251c30" id="meta-theme-color">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Кэшбэк v2">
+  <title>Кэшбэк-навигатор v2.0 — Ноябрь 2026</title>
+  <link rel="manifest" href="./manifest-icon-6.json" id="manifest-link">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon_6_192.png" id="favicon-link">
+  <link rel="icon" type="image/png" sizes="512x512" href="./icon_6_512.png">
+  <link rel="apple-touch-icon" href="./icon_6_192.png" id="apple-icon-link">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* Тёмная тема Кэшбэк-навигатора (удобно на кассе) */
+:root {
+  --bg: #0f172a;
+  --bg-card: #1e293b;
+  --bg-card-hover: #26354d;
+  --bg-elevated: #334155;
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent: #38bdf8;
+  --accent-green: #22c55e;
+  --accent-amber: #f59e0b;
+  --accent-rose: #f43f5e;
+  --accent-purple: #a855f7;
+  --border: #334155;
+  --radius: 14px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --app-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body, button, input, select, textarea, .cat-chip, .bank-quick-chip, .sub-pill, .nav-btn, .mcc-pill, .card-last4 {
+  font-family: var(--app-font);
+}
+
+body {
+  font-family: var(--app-font);
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.45;
+  padding-bottom: 84px;
+  min-height: 100vh;
+}
+
+/* Шапка */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid var(--accent);
+  background: var(--bg-card);
+}
+
+.app-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.app-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Переключатель профилей */
+.profile-switch {
+  display: flex;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.profile-btn {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  padding: 6px 11px;
+  border-radius: 7px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.profile-btn.active {
+  background: var(--accent);
+  color: #0f172a;
+}
+
+/* Контейнер */
+.main-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 14px 16px;
+}
+
+.tab-section {
+  display: none;
+}
+
+.tab-section.active {
+  display: block;
+}
+
+/* Поиск и кнопка MCC */
+.search-bar-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.search-input-wrap {
+  position: relative;
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 12px 38px 12px 14px;
+  font-size: 0.96rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-color: var(--accent);
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: none;
+}
+
+.mcc-quick-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 12px;
+  padding: 0 14px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mcc-quick-btn:hover {
+  background: rgba(56, 189, 248, 0.12);
+}
+
+/* Полоса подписок */
+.subs-strip {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  scrollbar-width: thin;
+}
+
+.sub-pill {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s;
+}
+
+.sub-pill.active {
+  background: rgba(34, 197, 94, 0.16);
+  border-color: var(--accent-green);
+  color: #86efac;
+}
+
+/* Облако категорий */
+.cloud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cloud-title {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cloud-mode-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 8px;
+  padding: 3px 8px;
+  font-size: 0.74rem;
+  cursor: pointer;
+}
+
+.category-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.cat-chip {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 6px 11px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+
+.cat-chip:hover {
+  border-color: var(--accent);
+}
+
+.cat-chip.active {
+  background: var(--accent);
+  color: #0f172a;
+  border-color: var(--accent);
+  font-weight: 700;
+}
+
+.cat-chip-max {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--accent-green);
+}
+
+.cat-chip.active .cat-chip-max {
+  color: #064e3b;
+}
+
+/* Карточки кэшбэка */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 10px;
+}
+
+.cb-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 13px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  transition: transform 0.12s, border-color 0.15s;
+  user-select: none;
+  position: relative;
+}
+
+.cb-card:hover {
+  border-color: #475569;
+}
+
+.cb-card.constant-card {
+  border-left: 4px solid var(--accent-purple);
+}
+
+.cb-card.promo-card {
+  border-left: 4px solid var(--accent-rose);
+}
+
+.cb-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.bank-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.bank-name {
+  font-weight: 700;
+  font-size: 0.94rem;
+  color: var(--text);
+}
+
+.card-last4 {
+  font-size: 0.76rem;
+  background: var(--bg-elevated);
+  color: var(--accent);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-family: var(--app-font);
+}
+
+.owner-badge {
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(56, 189, 248, 0.14);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.const-badge {
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(168, 85, 247, 0.18);
+  color: #d8b4fe;
+  font-weight: 600;
+}
+
+.promo-badge {
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(244, 63, 94, 0.2);
+  color: #fda4af;
+  font-weight: 600;
+}
+
+.percent-box {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.percent-val {
+  font-size: 1.38rem;
+  font-weight: 800;
+  color: var(--accent-green);
+  line-height: 1.1;
+}
+
+.percent-val.high {
+  color: var(--accent-amber);
+}
+
+.percent-subtext {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.cb-cat-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.cb-cat-std {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.cb-note-row {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  background: rgba(15, 23, 42, 0.55);
+  padding: 6px 9px;
+  border-radius: 8px;
+  border-left: 2px solid var(--accent);
+}
+
+.cb-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.limit-tag {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.card-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.info-btn, .hide-btn {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+.info-btn {
+  color: var(--accent);
+  min-width: 30px;
+  min-height: 28px;
+}
+.info-btn:hover {
+  background: rgba(56, 189, 248, 0.16);
+  border-color: var(--accent);
+  transform: scale(1.06);
+}
+
+.info-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.hide-btn {
+  color: var(--text-muted);
+}
+
+/* Нижняя навигация (5 вкладок) */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(15, 23, 42, 0.96);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  flex: 1;
+  max-width: 140px;
+}
+
+.nav-btn .nav-icon {
+  font-size: 1.18rem;
+}
+
+.nav-btn.active {
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+/* Шторка (Bottom Sheet) для ℹ️ Инфо / MCC */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 100;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sheet-overlay.open {
+  display: flex;
+}
+
+.bottom-sheet {
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 680px;
+  max-height: 86vh;
+  overflow-y: auto;
+  padding: 18px 18px 28px;
+  box-shadow: var(--shadow);
+  animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sheet-close {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sheet-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.sheet-bottom-close-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 9px 16px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.84rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sheet-bottom-close-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.mcc-grouped-box {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+.mcc-codes-row {
+  font-size: 0.84rem;
+  color: #e2e8f0;
+  line-height: 1.5;
+}
+.mcc-code-pill {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  margin-right: 4px;
+  margin-bottom: 3px;
+}
+.mcc-group-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.sheet-block {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.sheet-block-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.mcc-pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.mcc-pill {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  font-family: monospace;
+}
+
+/* Формы, панели и настройки */
+.panel-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.panel-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.form-control {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 11px;
+  border-radius: 9px;
+  font-size: 0.9rem;
+}
+
+.btn {
+  background: var(--accent);
+  color: #0f172a;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-secondary {
+  background: var(--bg-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-danger {
+  background: rgba(244, 63, 94, 0.2);
+  color: #fda4af;
+  border: 1px solid var(--accent-rose);
+}
+
+/* Сетка выбора из 7 иконок */
+.icons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.icon-option {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.icon-option.active {
+  border-color: var(--accent);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.icon-option img {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+}
+
+.icon-option-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-banner {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid var(--accent-green);
+  color: #bbf7d0;
+  font-size: 0.84rem;
+  margin-bottom: 12px;
+  display: none;
+}
+
+
+/* Дополнительные стили для модалок, тостов, карточек банков и редактора */
+.toast-msg {
+  position: fixed;
+  bottom: 88px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #064e3b;
+  border: 1px solid var(--accent-green);
+  color: #ecfdf5;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 200;
+  box-shadow: var(--shadow);
+  display: none;
+}
+.toast-msg.show {
+  display: block;
+}
+.bank-ref-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 15px;
+  margin-bottom: 12px;
+}
+.bank-ref-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  margin-bottom: 10px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.bank-owners-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+.bank-ref-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.bank-ref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.bank-ref-box {
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 11px;
+  font-size: 0.81rem;
+}
+.bank-ref-box strong {
+  display: block;
+  color: var(--accent);
+  font-size: 0.73rem;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.sub-active-tag {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  font-weight: 700;
+}
+.sub-inactive-tag {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(148, 163, 184, 0.18);
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.mcc-warn-box {
+  background: rgba(244, 63, 94, 0.14);
+  border: 1px solid var(--accent-rose);
+  color: #fecdd3;
+  border-radius: 9px;
+  padding: 8px 10px;
+  font-size: 0.81rem;
+  margin-top: 8px;
+}
+.code-area {
+  width: 100%;
+  min-height: 170px;
+  background: #090d16;
+  border: 1px solid var(--border);
+  color: #e2e8f0;
+  font-family: monospace;
+  font-size: 0.8rem;
+  padding: 10px;
+  border-radius: 10px;
+  resize: vertical;
+}
+.hidden-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(148, 163, 184, 0.1);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.summary-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+
+/* Дополнения v3: компактная шапка без переноса, динамические темы под иконку, карточка расшифровки MCC */
+.app-title {
+  font-size: 1.02rem;
+  font-weight: 800;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+.app-subtitle {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.mcc-quick-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 10px;
+  padding: 0 11px;
+  height: 36px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.best-offer-banner {
+  display: none;
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: linear-gradient(125deg, rgba(56, 189, 248, 0.16), rgba(245, 158, 11, 0.12));
+  border: 1px solid var(--accent);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.best-offer-banner.show {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.best-offer-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.best-offer-title {
+  font-size: 1.06rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.best-offer-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.best-offer-pct {
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: var(--accent-amber);
+  line-height: 1;
+  text-align: right;
+  flex-shrink: 0;
+}
+.rank-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--accent-amber);
+  background: rgba(245, 158, 11, 0.16);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+.cb-card.top-rank {
+  border-color: var(--accent-amber);
+  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.32);
+}
+.owner-badge.owner-denis {
+  background: rgba(56, 189, 248, 0.16);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+.owner-badge.owner-sasha {
+  background: rgba(245, 158, 11, 0.16);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+.category-cloud.compact-cloud {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+}
+.category-cloud.compact-cloud .cat-chip {
+  flex-shrink: 0;
+}
+.cat-group-divider {
+  width: 100%;
+  font-size: 0.73rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 2px;
+  font-weight: 700;
+}
+/* Плашка расшифровки MCC-кода перед списком карт */
+.mcc-decoded-banner {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid var(--accent);
+}
+.mcc-decoded-code {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  font-weight: 800;
+  margin-bottom: 3px;
+}
+.mcc-decoded-title {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.mcc-decoded-cat {
+  font-size: 0.81rem;
+  color: var(--text-muted);
+}
+
+
+/* Фирменные значки-эмблемы банков и цветовое оформление карт (без утяжеления приложения растровыми картинками) */
+.bank-logo-badge {
+  min-width: 28px;
+  width: auto;
+  height: 28px;
+  padding: 0 5px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 0.76rem;
+  color: #ffffff;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.cb-card {
+  position: relative;
+  overflow: hidden;
+}
+.cb-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  background: var(--bank-color, var(--border));
+}
+.bank-ref-card {
+  position: relative;
+  overflow: hidden;
+  border-left: 5px solid var(--bank-color, var(--border));
+}
+
+
+  
+/* Вариант 3: Компактные квадратные чипы [Д] и [С] */
+.chip-owner-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 2px 8px 2px 4px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  vertical-align: middle;
+}
+.chip-icon-d {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #0284c7;
+  color: #ffffff;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  box-shadow: 0 1px 3px rgba(2, 132, 199, 0.45);
+}
+.chip-icon-s {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #d946ef;
+  color: #ffffff;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  box-shadow: 0 1px 3px rgba(217, 70, 239, 0.45);
+}
+.chip-owner-text {
+  color: #f1f5f9;
+  font-weight: 600;
+}
+.chip-last4-text {
+  color: #94a3b8;
+  font-size: 0.73rem;
+  font-weight: 500;
+}
+
+  
+/* Компактная сетка MCC внутри шторки карточки (без растягивания на весь экран) */
+.mcc-compact-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.mcc-compact-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+.mcc-compact-chip .mcc-code-pill {
+  margin: 0;
+  padding: 1px 5px;
+  font-size: 0.76rem;
+}
+.mcc-compact-label {
+  color: var(--text);
+  font-size: 0.76rem;
+}
+.mcc-grouped-box {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 7px 10px;
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+/* Адаптация под Светлую тему (body.light-theme) */
+body.light-theme {
+  --shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+}
+body.light-theme .app-header {
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid #cbd5e1;
+}
+body.light-theme .bottom-nav {
+  background: rgba(255, 255, 255, 0.96);
+  border-top: 1px solid #cbd5e1;
+}
+body.light-theme .cb-card {
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+body.light-theme .cb-cat-title,
+body.light-theme .bank-name,
+body.light-theme .sheet-title,
+body.light-theme .confirm-modal-title {
+  color: #0f172a;
+}
+body.light-theme .cb-note-row {
+  background: #f1f5f9;
+  color: #334155;
+}
+body.light-theme .cb-card-footer {
+  border-top: 1px solid #e2e8f0;
+}
+body.light-theme .chip-owner-wrap {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+body.light-theme .chip-owner-text {
+  color: #0f172a;
+}
+body.light-theme .chip-last4-text {
+  color: #475569;
+}
+body.light-theme .sheet-block,
+body.light-theme .mcc-grouped-box,
+body.light-theme .mcc-compact-chip {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+body.light-theme .mcc-codes-row {
+  color: #0f172a;
+}
+body.light-theme .mcc-code-pill {
+  background: rgba(2, 132, 199, 0.12);
+  border-color: rgba(2, 132, 199, 0.35);
+  color: #0369a1;
+}
+body.light-theme .service-warning-row {
+  background: #fef3c7;
+  color: #92400e;
+  border-left-color: #d97706;
+}
+body.light-theme .confirm-modal-card {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+}
+body.light-theme .best-offer-banner {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.12), rgba(16, 185, 129, 0.1));
+  border-color: rgba(2, 132, 199, 0.35);
+}
+body.light-theme .cat-chip.top-rate .cat-chip-pct {
+  color: #ffffff;
+}
+body.light-theme .promo-badge {
+  background: rgba(244, 63, 94, 0.14);
+  color: #be123c;
+}
+body.light-theme .const-badge {
+  background: rgba(168, 85, 247, 0.14);
+  color: #7e22ce;
+}
+
+  
+/* Спойлер для MCC-исключений (не перегружает интерфейс) */
+details.mcc-excl-spoiler {
+  margin-top: 8px;
+  background: rgba(244, 63, 94, 0.06);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  border-radius: 10px;
+  padding: 8px 12px;
+  transition: all 0.15s ease;
+}
+details.mcc-excl-spoiler summary {
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fda4af;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+details.mcc-excl-spoiler summary::-webkit-details-marker {
+  display: none;
+}
+details.mcc-excl-spoiler summary::after {
+  content: "▸ Развернуть";
+  font-size: 0.72rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+details.mcc-excl-spoiler[open] summary::after {
+  content: "▾ Свернуть";
+}
+.mcc-excl-body {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(244, 63, 94, 0.2);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  font-family: monospace;
+  word-break: break-word;
+}
+body.light-theme details.mcc-excl-spoiler {
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+body.light-theme details.mcc-excl-spoiler summary {
+  color: #be123c;
+}
+body.light-theme .mcc-excl-body {
+  color: #475569;
+  border-top-color: #fecdd3;
+}
+
+  
+/* Модальное окно подтверждения скрытия карты и сервисные предупреждения */
+.service-warning-row {
+  font-size: 0.78rem;
+  color: #fde68a;
+  background: rgba(245, 158, 11, 0.14);
+  padding: 6px 9px;
+  border-radius: 8px;
+  border-left: 3px solid var(--accent-amber);
+  font-weight: 600;
+}
+.card-holding {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+.confirm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 150;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.confirm-modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.confirm-modal-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+.confirm-modal-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.confirm-modal-sub {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.confirm-modal-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  line-height: 1.45;
+}
+.confirm-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+  
+/* Быстрые кнопки выбора банка с эмблемами во вкладке «Банки» */
+.banks-quick-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.bank-quick-chip {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 4px 9px 4px 5px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.bank-logo-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.bank-quick-chip {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 11px;
+  padding: 4px 10px 4px 5px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.15s ease;
+}
+.bank-quick-chip .bank-logo-img {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+.bank-quick-chip .bank-logo-badge {
+  min-width: 24px;
+  width: auto;
+  height: 24px;
+  padding: 0 5px;
+  border-radius: 6px;
+  font-size: 0.58rem !important;
+  letter-spacing: -0.01em;
+}
+.bank-quick-chip:hover {
+  border-color: var(--accent);
+}
+.bank-quick-chip.active {
+  background: var(--accent);
+  color: #0f172a;
+  border-color: var(--accent);
+  font-weight: 700;
+}
+body.light-theme .bank-quick-chip.active {
+  color: #ffffff;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Шапка приложения: компактная кнопка «🔢 MCC» и название без переноса -->
+  <header class="app-header">
+    <div class="header-top">
+      <div class="brand-wrap" style="min-width:0;">
+        <div style="min-width:0;">
+          <div class="app-title">Кэшбэк-навигатор <span style="font-size:0.72rem; opacity:0.8; vertical-align:middle; background:rgba(56,189,248,0.18); color:#38bdf8; padding:1px 6px; border-radius:6px; font-weight:700;">v2.0</span></div>
+          <div class="app-subtitle" id="header-period-subtitle">Ноябрь 2026</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Основной контейнер -->
+  <main class="main-container">
+    <div class="status-banner" id="status-banner"></div>
+
+    <!-- ВКЛАДКА 1: ПОИСК -->
+    <section class="tab-section active" id="tab-search">
+      <div class="search-bar-row">
+        <div class="search-input-wrap">
+          <input type="text" class="search-input" id="search-input" placeholder="Категория, магазин, банк или 4 цифры MCC (напр. 5411, 5814)..." autocomplete="off">
+          <button type="button" class="search-clear-btn" id="search-clear-btn" title="Очистить поиск" aria-label="Очистить поиск">✕</button>
+        </div>
+      </div>
+
+      <!-- Облако категорий в порядке частоты использования в быту -->
+      <div id="cloud-wrapper">
+        <div class="cloud-header">
+          <span class="cloud-title" id="cloud-count-label"></span>
+          <button type="button" class="cloud-mode-btn" id="reset-filter-btn" style="display:none;">Все категории</button>
+        </div>
+        <div class="category-cloud" id="category-cloud"></div>
+      </div>
+
+      <!-- Плашка расшифровки MCC-кода (показывается, когда в поиск введены 4 цифры MCC) -->
+      <div id="search-mcc-info-box" style="display:none;"></div>
+
+      <!-- Баннер «Лучшая карта для оплаты» -->
+      <div class="best-offer-banner" id="best-offer-banner">
+        <div>
+          <div class="best-offer-label">🏆 Лучшая карта для оплаты</div>
+          <div class="best-offer-title" id="best-offer-title">—</div>
+          <div class="best-offer-meta" id="best-offer-meta">—</div>
+        </div>
+        <div class="best-offer-pct" id="best-offer-pct">—%</div>
+      </div>
+
+      <!-- Сводка и подсказка -->
+      <div class="summary-strip" id="search-summary-strip" style="display:none;">
+        <span id="cards-found-label">Найдено карт: 0</span>
+        <span style="font-size:0.75rem;">💡 Клик по карточке — условия, мин. оборот и MCC • Удержание (1 сек) — скрыть</span>
+      </div>
+
+      <!-- Сетка карточек кэшбэка -->
+      <div class="cards-grid" id="cards-grid"></div>
+
+      <!-- Панель скрытых карточек -->
+      <div class="hidden-bar" id="hidden-cards-bar" style="display:none;">
+        <span id="hidden-cards-count">Скрыто карточек: 0</span>
+        <button type="button" class="btn btn-secondary" id="restore-hidden-btn" style="padding:5px 10px; font-size:0.76rem;">Показать скрытые</button>
+      </div>
+    </section>
+
+    <!-- ВКЛАДКА 2: MCC (Проверка 4-значных кодов терминалов и магазинов) -->
+    <section class="tab-section" id="tab-mcc">
+      <div class="panel-card">
+        <div class="panel-title">
+          <span>🔢 Проверка MCC-кодов и магазинов</span>
+        </div>
+        <div class="search-input-wrap" style="margin-bottom:10px;">
+          <input type="text" id="mcc-tab-input" class="search-input" placeholder="Введите 4 цифры MCC (5411, 5814) или магазин (Купер, К&Б, Ozon Fresh)..." autocomplete="off">
+          <button type="button" class="search-clear-btn" id="mcc-tab-clear-btn" title="Очистить" aria-label="Очистить">✕</button>
+        </div>
+        <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:6px; font-weight:600;">Быстрый выбор популярных кодов и магазинов:</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;" id="mcc-tab-presets">
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="5411">5411 Супермаркеты</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="5814">5814 Фастфуд</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="5812">5812 Рестораны</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="5912">5912 Аптеки</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="5541">5541 АЗС</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="4812">4812 Салоны связи</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="7933">7933 Боулинг</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="Купер">🛒 Купер</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="Красное и Белое">🍷 К&Б / Бристоль</button>
+          <button type="button" class="mcc-pill mcc-preset-btn" data-code="Ozon Fresh">🥦 Ozon Fresh</button>
+        </div>
+        <div id="mcc-tab-results"></div>
+      </div>
+    </section>
+
+    <!-- ВКЛАДКА 3: БАНКИ (Справочник всех 18 банков без блока подписок) -->
+    <section class="tab-section" id="tab-banks">
+      <div class="panel-card" style="margin-bottom:12px;">
+        <div class="panel-title" style="flex-wrap:wrap; gap:8px;">
+          <span>🏦 Справочник банков</span>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="owner-badge" id="banks-count-badge">18 банков</span>
+            <button type="button" class="mcc-quick-btn" id="banks-search-toggle-btn" title="Поиск среди банков" style="height:30px; padding:0 10px; font-size:0.78rem;">🔍 Поиск</button>
+          </div>
+        </div>
+        <div id="banks-search-wrap" style="display:none; margin:10px 0;">
+          <div class="search-input-wrap">
+            <input type="text" class="search-input" id="banks-search-input" placeholder="Поиск банка, категории, условий или MCC-исключения (напр. БСПБ, ЮMoney, 4900)..." autocomplete="off">
+            <button type="button" class="search-clear-btn" id="banks-search-clear-btn" title="Очистить" aria-label="Очистить">✕</button>
+          </div>
+        </div>
+        <div class="banks-quick-bar" id="banks-quick-chips"></div>
+      </div>
+      <div id="banks-reference-list"></div>
+    </section>
+
+    <!-- ВКЛАДКА 4: ПОДПИСКИ (Отдельное меню управления подписками и порогами оборота Дениса и Саши) -->
+    <section class="tab-section" id="tab-subs">
+      <div class="panel-card" style="margin-bottom:12px;">
+        <div class="panel-title">
+          <span>💎 Активные подписки и условия оборота</span>
+        </div>
+        <div class="subs-strip" id="subs-strip" aria-label="Переключатели подписок" style="flex-wrap:wrap; overflow-x:visible;"></div>
+      </div>
+
+      <div class="panel-card">
+        <div class="panel-title">📋 Что дают подписки и переключатели оборота</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:0.83rem; line-height:1.45;">
+          <div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border);">
+            <strong>🅰️ Alfa Only (по умолчанию включена у Дениса и Саши):</strong> увеличивает месячный лимит кэшбэка в Альфа-Банке с 5 000 ₽ до <strong>15 000 ₽/мес</strong> и даёт выбор 5 повышенных категорий (7%–14%).
+          </div>
+          <div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border);">
+            <strong>🟢 СберПрайм (по умолчанию включена у Дениса и Саши):</strong> обязательна для начисления кэшбэка в категориях СберБанка и увеличивает лимит бонусов Спасибо до <strong>10 000/мес</strong>.
+          </div>
+          <div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border);">
+            <strong>🔴 МТС Premium (по умолчанию включена у Дениса и Саши):</strong> даёт <strong>5% кэшбэка в «Супермаркетах»</strong> по карте МТС Деньги (без подписки начисляется только 1%) и увеличивает лимит до 10 000 баллов/мес.
+          </div>
+          <div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border);">
+            <strong>🟠 ПСБ Orange (траты >10к / >80к ₽) (по умолчанию выключена):</strong> включает в поиске категории карты ПСБ Orange Premium Club (•• 3184): <strong>5% «Отели и билеты»</strong> (действует при покупках > 10 000 ₽/мес) и <strong>10% «Кафе, рестораны, фастфуд»</strong> (действует при покупках > 80 000 ₽/мес).
+          </div>
+          <div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border);">
+            <strong>🔵 ПСБ траты > 75 000 ₽ (+2%) (по умолчанию выключена):</strong> прибавляет <strong>+2%</strong> ко всем выбранным категориям базовой карты ПСБ «Твой кэшбэк» (•• 3269, 5517).
+          </div>
+          <div style="padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--border);">
+            <strong>🟣 Подписка «Моя жизнь» (УБРиР) и Подписка Ингосстрах (по умолчанию выключены):</strong> активируют повышенный лимит / ставку по онлайн-покупкам в УБРиР и бонусные условия в Инго Банке.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ВКЛАДКА 5: НАСТРОЙКИ (Тема, Шрифт, Сброс кэша + Редактор и Импорт в самом низу) -->
+    <section class="tab-section" id="tab-settings">
+      <div class="panel-card">
+        <div class="panel-title">🎨 Тема оформления и ярлык приложения</div>
+        <div class="icons-grid" id="icons-selector-grid"></div>
+        <div style="margin-top:14px; padding-top:12px; border-top:1px solid var(--border);">
+          <div style="font-size:0.85rem; font-weight:700; margin-bottom:8px;">🔤 Шрифт карточек:</div>
+          <div class="category-cloud" id="fonts-selector-grid" style="margin-bottom:0;"></div>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <div class="panel-title">⚙️ Управление данными и проверка даты</div>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:14px; font-size:0.85rem;">
+          <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border);">
+            <span style="color:var(--text-muted);">Текущая дата проверки сроков акций:</span>
+            <strong id="settings-today-val">—</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border);">
+            <span style="color:var(--text-muted);">Всего категорий в базе:</span>
+            <strong id="settings-total-cats">0</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:var(--text-muted);">Скрыто карточек удержанием:</span>
+            <strong id="settings-hidden-cats">0</strong>
+          </div>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <button type="button" class="btn btn-secondary" id="settings-unhide-all-btn">👁️ Вернуть все скрытые карточки</button>
+          <button type="button" class="btn btn-danger" id="settings-reset-db-btn">🔄 Сбросить локальный кэш к базе Ноября 2026</button>
+        </div>
+      </div>
+
+      <!-- Спрятанные в самый низ Настроек разделы Редактора и Импорта -->
+      <details class="mcc-excl-spoiler" style="margin-top:14px; padding:12px 14px; border-radius:14px; background:var(--bg-card); border:1px solid var(--border);">
+        <summary style="font-size:0.95rem; font-weight:700; color:var(--text); cursor:pointer;">✏️ Редактор категорий и реестр номеров карт (развернуть)</summary>
+        <div style="margin-top:12px;">
+          <div class="panel-card" style="margin-bottom:12px;">
+            <div class="panel-title">
+              <span>✏️ Добавить / изменить категорию</span>
+              <span class="owner-badge" id="editor-owner-indicator">Денис и Саша</span>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="ed-profile">Чья карта (Владелец)</label>
+                <select id="ed-profile" class="form-control">
+                  <option value="Денис">[Д] Денис</option>
+                  <option value="Саша">[С] Саша</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="ed-bank-select">Банк / Карта</label>
+                <select id="ed-bank-select" class="form-control"></select>
+              </div>
+              <div class="form-group">
+                <label for="ed-new-bank-name">Или новый банк (напр. ЮMoney, WB Банк)</label>
+                <input type="text" id="ed-new-bank-name" class="form-control" placeholder="Напр.: WB Банк">
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="ed-cat-raw">Название категории со скрина</label>
+                <input type="text" id="ed-cat-raw" class="form-control" placeholder="Напр.: Супермаркеты">
+              </div>
+              <div class="form-group">
+                <label for="ed-percent">Процент кэшбэка (%)</label>
+                <input type="number" id="ed-percent" class="form-control" placeholder="5" step="0.5">
+              </div>
+              <div class="form-group">
+                <label for="ed-percent-sub">% с подпиской (если есть)</label>
+                <input type="number" id="ed-percent-sub" class="form-control" placeholder="10" step="0.5">
+              </div>
+              <div class="form-group">
+                <label for="ed-limit-rub">Лимит категории в ₽ (число)</label>
+                <input type="number" id="ed-limit-rub" class="form-control" placeholder="1500">
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="ed-condition">Условие / Даты (напр. до 15.11)</label>
+                <input type="text" id="ed-condition" class="form-control" placeholder="Напр.: При заказе от 1500 ₽, до 23.11">
+              </div>
+              <div class="form-group">
+                <label for="ed-mcc">MCC-коды (через запятую)</label>
+                <input type="text" id="ed-mcc" class="form-control" placeholder="5411, 5422, 5499">
+              </div>
+              <div class="form-group">
+                <label for="ed-is-promo">Короткая акция (🔥 Акция)?</label>
+                <select id="ed-is-promo" class="form-control">
+                  <option value="false">Нет (обычная категория месяца)</option>
+                  <option value="true">Да (короткая акция)</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="button" class="btn" id="ed-save-cat-btn">➕ Сохранить / обновить категорию</button>
+          </div>
+
+          <div class="panel-card" style="margin-bottom:12px;">
+            <div class="panel-title">💳 Реестр номеров карт</div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="ed-card-bank">Выберите карту из реестра</label>
+                <select id="ed-card-bank" class="form-control"></select>
+              </div>
+              <div class="form-group">
+                <label for="ed-card-last4">Последние 4 цифры карты (через запятую)</label>
+                <input type="text" id="ed-card-last4" class="form-control" maxlength="60" placeholder="Напр.: 1234 или 1234, 5678" value="0000">
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary" id="ed-save-last4-btn">💾 Обновить 4 цифры карты</button>
+          </div>
+
+          <div class="panel-card" style="margin-bottom:0;">
+            <div class="panel-title">📋 Все категории в базе</div>
+            <div id="editor-categories-list"></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="mcc-excl-spoiler" style="margin-top:10px; padding:12px 14px; border-radius:14px; background:var(--bg-card); border:1px solid var(--border);">
+        <summary style="font-size:0.95rem; font-weight:700; color:var(--text); cursor:pointer;">📷 Импорт и экспорт базы JSON (развернуть)</summary>
+        <div style="margin-top:12px;">
+          <div class="panel-card" style="margin-bottom:0;">
+            <div class="panel-title">
+              <span>📷 Импорт и экспорт базы</span>
+              <span class="owner-badge" id="import-sync-badge">Офлайн-кэш активен</span>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+              <button type="button" class="btn" id="sync-github-btn">🔄 Обновить data.json с GitHub</button>
+              <button type="button" class="btn btn-secondary" id="paste-clipboard-btn">📋 Вставить из буфера</button>
+              <button type="button" class="btn btn-secondary" id="export-data-btn">💾 Скачать data.json</button>
+              <button type="button" class="btn btn-secondary" id="export-cards-btn">💳 Скачать cards_config.json</button>
+            </div>
+            <div class="form-group" style="margin-bottom:10px;">
+              <label for="import-file-input">Загрузить готовый файл JSON (.json):</label>
+              <input type="file" id="import-file-input" accept=".json,application/json" class="form-control">
+            </div>
+            <div class="form-group" style="margin-bottom:10px;">
+              <label for="import-json-textarea">Или вставьте содержимое JSON вручную:</label>
+              <textarea id="import-json-textarea" class="code-area" placeholder="Вставьте сюда содержимое data.json..."></textarea>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <button type="button" class="btn" id="apply-import-btn">✅ Импортировать в базу</button>
+              <button type="button" class="btn btn-secondary" id="fill-current-json-btn">📄 Вывести текущий data.json в поле</button>
+            </div>
+          </div>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <!-- Модальная шторка (Bottom Sheet) для ℹ️ Условия / MCC -->
+  <div class="sheet-overlay" id="sheet-overlay" role="dialog" aria-modal="true">
+    <div class="bottom-sheet" id="bottom-sheet">
+      <div class="sheet-header">
+        <div>
+          <div style="font-size:1.05rem; font-weight:800;" id="sheet-title">Информация по категории</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);" id="sheet-subtitle">Банк и категория</div>
+        </div>
+        <button type="button" class="sheet-close" id="sheet-close-btn" aria-label="Закрыть" title="Закрыть">✕</button>
+      </div>
+      <div id="sheet-body"></div>
+    </div>
+  </div>
+
+  <!-- Модальное окно подтверждения скрытия карты (по долгому нажатию 1 сек) -->
+  <div class="confirm-modal-overlay" id="confirm-modal-overlay" style="display:none;">
+    <div class="confirm-modal-card">
+      <div class="confirm-modal-icon">👁️‍🗨️</div>
+      <div class="confirm-modal-title">Скрыть карту из поиска?</div>
+      <div class="confirm-modal-sub" id="confirm-modal-sub">Банк — Категория</div>
+      <p class="confirm-modal-text">Карта перестанет показываться в результатах поиска. Восстановить её можно в любой момент через плашку «Показать скрытые» внизу.</p>
+      <div class="confirm-modal-actions">
+        <button type="button" class="btn btn-secondary" id="confirm-modal-cancel-btn">Отмена</button>
+        <button type="button" class="btn btn-danger" id="confirm-modal-ok-btn">Скрыть карту</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Всплывающее уведомление -->
+  <div class="toast-msg" id="toast-msg"></div>
+
+  <!-- Нижняя навигационная панель (5 вкладок: Поиск, MCC, Банки, Подписки, Настройки) -->
+  <nav class="bottom-nav" aria-label="Основная навигация">
+    <button type="button" class="nav-btn active" data-tab="tab-search" id="nav-btn-search">
+      <span class="nav-icon">🔍</span>
+      <span>Поиск</span>
+    </button>
+    <button type="button" class="nav-btn" data-tab="tab-mcc" id="nav-btn-mcc">
+      <span class="nav-icon">🔢</span>
+      <span>MCC</span>
+    </button>
+    <button type="button" class="nav-btn" data-tab="tab-banks" id="nav-btn-banks">
+      <span class="nav-icon">🏦</span>
+      <span>Банки</span>
+    </button>
+    <button type="button" class="nav-btn" data-tab="tab-subs" id="nav-btn-subs">
+      <span class="nav-icon">💎</span>
+      <span>Подписки</span>
+    </button>
+    <button type="button" class="nav-btn" data-tab="tab-settings" id="nav-btn-settings">
+      <span class="nav-icon">⚙️</span>
+      <span>Настройки</span>
+    </button>
+  </nav>
+
+  <script src="./app-bundle.js"></script>
+</body>
+</html>

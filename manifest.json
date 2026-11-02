@@ -1,5 +1,5 @@
 {
-  "id": "./",
+  "id": "./index.html",
   "name": "Кэшбэк-навигатор v2.0",
   "short_name": "Кэшбэк v2",
   "description": "Семейный офлайн PWA-навигатор банковского кэшбэка, лимитов, подписок и MCC-кодов (Денис и Саша)",
@@ -16,13 +16,25 @@
       "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
