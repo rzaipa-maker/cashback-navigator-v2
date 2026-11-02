@@ -1,7 +1,6 @@
 // Версия кэша приложения Кэшбэк-навигатор v2.0
-const CACHE_NAME = 'cashback-navigator-v2.1';
+const CACHE_NAME = 'cashback-navigator-v2.5';
 
-// Ресурсы для офлайн-работы
 const STATIC_ASSETS = [
   "./",
   "./index.html",
@@ -59,6 +58,7 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+// Network-First с мгновенным офлайн-резервом из кэша
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
@@ -66,39 +66,19 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  const isDataFile =
-    url.pathname.endsWith('/data.json') ||
-    url.pathname.endsWith('/cards_config.json') ||
-    url.pathname.endsWith('data.json') ||
-    url.pathname.endsWith('cards_config.json');
-
-  if (isDataFile) {
-    event.respondWith(
-      fetch(req, { cache: 'no-store' })
-        .then((networkRes) => {
-          if (networkRes && networkRes.ok) {
-            const resClone = networkRes.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
-          }
-          return networkRes;
-        })
-        .catch(() => caches.match(req, { ignoreSearch: true }))
-    );
-    return;
-  }
-
   event.respondWith(
-    caches.match(req, { ignoreSearch: true }).then((cachedRes) => {
-      const fetchPromise = fetch(req)
-        .then((networkRes) => {
-          if (networkRes && networkRes.ok) {
-            const resClone = networkRes.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
-          }
-          return networkRes;
-        })
-        .catch(() => cachedRes);
-      return cachedRes || fetchPromise;
-    })
+    fetch(req)
+      .then((networkRes) => {
+        if (networkRes && networkRes.ok) {
+          const resClone = networkRes.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+        }
+        return networkRes;
+      })
+      .catch(() =>
+        caches.match(req).then((exactRes) =>
+          exactRes || caches.match(req, { ignoreSearch: true })
+        )
+      )
   );
 });
