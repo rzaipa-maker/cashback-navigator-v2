@@ -1,5 +1,5 @@
 // Версия кэша приложения Кэшбэк-навигатор v2.0
-const CACHE_NAME = 'cashback-navigator-v2.5';
+const CACHE_NAME = 'cashback-navigator-v2.8';
 
 const STATIC_ASSETS = [
   "./",
